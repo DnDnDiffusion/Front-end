@@ -1,3 +1,13 @@
+# What to build:
+
+- A frontend that:
+
+  [] Displays form to send to backend for image processing ie. /getImage
+
+  [] Scrapes a PDF
+
+  [] Displays response
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
