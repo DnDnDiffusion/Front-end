@@ -6,7 +6,15 @@
 
   [] Scrapes a PDF
 
-  [] Displays response
+  [] Displays response of image choices for characters
+
+  [] Serverside API call to backend / back-up to nft.storage
+
+  [] After character selection, send and save chosen character with character sheet
+
+## endpoint documentation
+
+[] stuff about the endpoint
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
