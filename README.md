@@ -16,6 +16,26 @@
 
 [] stuff about the endpoint
 
+### roadmaps
+
+[] using next/Image instead of img
+
+[] collect emails and save to db
+
+> make sure it sends to api like the other fields
+> then, save the email to the db
+> in the db you can have something like
+> {
+
+    email: <email>,
+    useCount: <incrementing number>,
+    ...etc
+
+}
+
+> then every time they run the app, you increment the number
+> dataaa
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
