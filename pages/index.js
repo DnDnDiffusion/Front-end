@@ -1,6 +1,8 @@
-import Head from "next/head";
-import Image from "next/image";
+// import Head from "next/head";
+// import Image from "next/image";
 import { useState } from "react";
+import { avatarNFTSTORAGE } from "../utils/web3utils";
+import elfImage from "../public/elf-3600557344.png";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -36,6 +38,10 @@ export default function Home() {
     setImageProcessing(false);
   };
 
+  const storeImage = async () => {
+    avatarNFTSTORAGE(elfImage);
+  };
+
   return (
     <div>
       <h1>The Thing:</h1>
@@ -58,7 +64,10 @@ export default function Home() {
       </button>
 
       {imageResult && (
-        <img src={imageResult.imageUrl} alt={"its your image!"} />
+        <>
+          <img src={imageResult.imageUrl} alt={"its your image!"} />
+          <div onClick={storeImage}>NFT.Storage</div>
+        </>
       )}
     </div>
   );
