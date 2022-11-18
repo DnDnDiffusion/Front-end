@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <div id="bodytype">
-      <h1>DnDnDiffusion</h1>
+      <h1>D&D Diffusion</h1>
       {/* input takes in text for now, but eventually allows a .pdf upload */}
       {/* <form method="post"> */}
 
