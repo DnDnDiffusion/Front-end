@@ -12,6 +12,8 @@ export default function Home() {
   const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
   const [error, setError] = useState(null); //error msg
   const [imageResult, setImageResult] = useState(null); //url
+  const [nftStorageProcessing, setNftStorageProcessing] = useState(false); //processing state ie. loading...
+  const [CID, setCID] = useState(null); //url
 
   const setValue = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -39,7 +41,10 @@ export default function Home() {
   };
 
   const storeImage = async () => {
-    avatarNFTSTORAGE(elfImage);
+    setNftStorageProcessing(true);
+    const cid = await avatarNFTSTORAGE(imageResult.imageUrl);
+    setNftStorageProcessing(false);
+    setCID(cid);
   };
 
   return (
@@ -66,9 +71,14 @@ export default function Home() {
       {imageResult && (
         <>
           <img src={imageResult.imageUrl} alt={"its your image!"} />
-          <div onClick={storeImage}>NFT.Storage</div>
+          {nftStorageProcessing ? (
+            <p>Waiting for NFT Storage...</p>
+          ) : (
+            <button onClick={storeImage}>Store Image</button>
+          )}
         </>
       )}
+      {CID && <p>Image stored at CID: {CID}</p>}
     </div>
   );
 }
