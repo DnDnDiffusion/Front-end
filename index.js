@@ -1,8 +1,7 @@
-// import Head from "next/head";
-// import Image from "next/image";
+import Head from "next/head";
+import Image from "next/image";
 import { useState } from "react";
-import { avatarNFTSTORAGE } from "../utils/web3utils";
-import elfImage from "../public/elf-3600557344.png";
+<link id="pagestyle" href="default.css" rel="stylesheet" type="text/css"/>
 
 export default function Home() {
   const [data, setData] = useState({
@@ -38,15 +37,13 @@ export default function Home() {
     setImageProcessing(false);
   };
 
-  const storeImage = async () => {
-    avatarNFTSTORAGE(elfImage);
-  };
-
   return (
-    <div>
-      <h1>The Thing:</h1>
+    <div id="bodytype">
+      <h1>DnDnDiffusion</h1>
       {/* input takes in text for now, but eventually allows a .pdf upload */}
       {/* <form method="post"> */}
+
+      <div id="inputs">
       <input
         onChange={(e) => setValue(e)}
         type="text"
@@ -59,16 +56,28 @@ export default function Home() {
         name="class"
         placeholder="Enter your class"
       />
+      <select id="gender" name="gender">
+        <option value="Male">Male</option> 
+        <option value="Female">Female</option>
+        <option value="Non-Binary">Non-Binary</option>
+      </select>
+
       <button onClick={send} type="submit" name="submit">
         {imageProcessing ? "Waiting for image..." : "Send"}
       </button>
+      </div>
+      <br></br>
 
+      <div id="imagegeneration">
       {imageResult && (
-        <>
-          <img src={imageResult.imageUrl} alt={"its your image!"} />
-          <div onClick={storeImage}>NFT.Storage</div>
-        </>
+        <img src={imageResult.imageUrl} alt={"its your image!"} />
       )}
+
+      </div>
+      <div id="inputs">
+      <button type="button">Enhance!</button>
+      <button type="button">Save as NFT</button>
+      </div>
     </div>
   );
 }
