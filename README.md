@@ -11,11 +11,17 @@
 
 0. Watch our demo video to see the full version (with Cloud GPU Stable Diffusion) or follow these steps to run on your local machine.
 1. Git clone this front-end `git clone git@github.com:DnDnDiffusion/Front-end.git`
-2. Make sure you have an [NFT.Storage](https://nft.storage/docs/#using-the-javascript-api) API Key in your .env.local and run npm install nft.storage
-3. Set up the flask server (pdfExtract)
-4. Download automatic1111's stable diffusion webui
-5. Download our checkpoints trained on DnD Characters and Classes and put them in the models folder
-6. Make sure everything is connected correctly
+2. git clone this stable-diffusion-webui `git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git`
+3. Set up your stable-diffusion-webui setup as per the instructions in their README.md
+4. Download our checkpoints trained on DnD Characters and Classes and put them in the models folder
+5. run `python webui.py --api` in the stable-diffusion-webui directory
+6. run `npm install` in the Front-end directory
+7. run `npm start` in the Front-end directory
+8. Open your browser to `http://localhost:3000/` and enjoy!
+
+# NOT DONE YET
+
+cl 2. Make sure you have an [NFT.Storage](https://nft.storage/docs/#using-the-javascript-api) API Key in your .env.local and run npm install nft.storage 3. Set up the flask server (pdfExtract) 4. Make sure everything is connected correctly
 
 ## Front-end setup
 
