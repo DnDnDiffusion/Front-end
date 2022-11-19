@@ -15,7 +15,7 @@
 1. Git clone this front-end `git clone git@github.com:DnDnDiffusion/Front-end.git`
 2. git clone this stable-diffusion-webui `git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git`
 3. Set up your stable-diffusion-webui setup as per the instructions in their README.md
-4. Download our (.ckpt checkpoints trained on DnD Dragonborn race and the classes of Artificer and Cleric)[https://drive.google.com/drive/folders/1dvFfvZtBywAVWTwxPInv26ZjTadEiabT] and put them in the models folder 
+4. Download our [.ckpt checkpoints trained on DnD Dragonborn race and the classes of Artificer and Cleric](https://drive.google.com/drive/folders/1dvFfvZtBywAVWTwxPInv26ZjTadEiabT) and put them in the models folder 
 5. Make sure you have an [NFT.Storage](https://nft.storage/docs/#using-the-javascript-api) API Key in your .env.local and run npm install nft.storage
 6. run `python webui.py --api` in the stable-diffusion-webui directory
 7. run `npm install` in the Front-end directory
