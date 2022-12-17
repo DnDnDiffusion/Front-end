@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
+import Link from "next/link";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -62,7 +63,7 @@ export default function Home() {
 
   return (
     <div id="bodytype">
-      <h1>D&D Diffusio</h1>
+      <h1>D&D Diffusion</h1>
       {/* input takes in text for now, but eventually allows a .pdf upload */}
       {/* <form method="post"> */}
       <div id="inputs">
@@ -90,16 +91,11 @@ export default function Home() {
       </div>
       <br></br>
       <div id="imagegeneration">
-        <Image
-          src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-          alt="sweating-nervous"
-          width={256}
-          height={256}
-        />
         {imageProcessing ? (
           <Image
-            src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-            alt="sweating-nervous"
+            // src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
+            src="/images/0.jpeg"
+            alt="on my way"
             width={256}
             height={256}
           />
