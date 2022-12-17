@@ -1,6 +1,6 @@
 // import Head from "next/head";
-import Image from "next/image";
-import { useState, useEffect } from "react";
+// import Image from "next/image";
+import { useState } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
 
@@ -19,39 +19,26 @@ export default function Home() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  // const send = async () => {
-  //   setImageProcessing(true);
-  //   console.log("data: ", data);
-  //   //send req to backend with data to get the goods
-  //   let result = await fetch("/api/getImage", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       data: data,
-  //     }),
-  //   }); //result is given as a URL in S3 bucket or smth
-  //   result = await result.json();
-  //   if (result.error) setError(result.error);
-  //   console.log("result from image processing", result);
-  //   setImageResult(result);
-  //   setImageProcessing(false);
-  // };
   const send = async () => {
     setImageProcessing(true);
-  };
-
-  const changeIt = async () => {
+    console.log("data: ", data);
+    //send req to backend with data to get the goods
+    let result = await fetch("/api/getImage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        data: data,
+      }),
+    }); //result is given as a URL in S3 bucket or smth
+    result = await result.json();
+    if (result.error) setError(result.error);
+    console.log("result from image processing", result);
+    setImageResult(result);
     setImageProcessing(false);
   };
-  useEffect(() => {
-    if (imageProcessing) {
-      console.log(imageProcessing);
-      setTimeout(changeIt, 3000);
-    }
-  }, [imageProcessing]);
 
   const storeImage = async () => {
     setNftStorageProcessing(true);
@@ -90,21 +77,10 @@ export default function Home() {
       </div>
       <br></br>
       <div id="imagegeneration">
-        {imageProcessing ? (
-          <Image
-            // src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-            src="0.jpeg"
-            alt="on my way"
-            width={256}
-            height={256}
-          />
-        ) : (
-          "image not loading"
-        )}
         {imageResult && (
           <>
             <div class="div-child">
-              <Image src={imageResult.imageUrl} alt={"its your image!"} />
+              <img src={imageResult.imageUrl} alt={"its your image!"} />
             </div>
             <div class="div-child">
               {nftStorageProcessing ? (
