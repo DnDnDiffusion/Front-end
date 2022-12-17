@@ -93,7 +93,7 @@ export default function Home() {
         {imageProcessing ? (
           <Image
             // src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-            src="0.jpeg"
+            src="/images/0.jpeg"
             alt="on my way"
             width={256}
             height={256}
