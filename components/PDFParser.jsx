@@ -1,32 +1,28 @@
 import React, { useState } from "react";
 
-export default function PDFParser() {
+export default function PDFParser({ pdfData, setPdfData }) {
   const [pdf, setPdf] = useState();
-  const [pdfData, setPdfData] = useState();
+  // const [pdfData, setPdfData] = useState(); //can get pdfdata state from parent component instead of initializing here
 
   const handlePDFChange = (e) => {
-    // console.log(e.target);
     if (!e.target.files) return;
     const file = e.target.files[0];
-    // console.log("file: ", file);
     setPdf(file);
   };
 
   const handleUpload = async () => {
-    // console.log("pdf: ", pdf);
     const body = new FormData();
-    // body.append("file", pdf);
     body.set("file", pdf);
-    // console.log("body: ", body.get("file"));
 
     const res = await fetch("/api/PDFParser", {
       method: "POST",
-      // "content-type": "multipart/form-data",
       body: body,
     });
     const data = await res.json();
     console.log("data: ", data);
     setPdfData(data);
+
+    //make the getImageRquest here and set the image state or maybe use this as a callback from parent to use a diff component for image upload to cloud gpu
   };
 
   return (
@@ -42,7 +38,6 @@ export default function PDFParser() {
           //if pdfData exists, loop through object and display key and value
           pdfData &&
             Object.entries(pdfData).map(([key, value]) => {
-              console.log(typeof value);
               return (
                 <div
                   key={key}

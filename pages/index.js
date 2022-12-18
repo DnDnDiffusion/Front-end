@@ -15,6 +15,7 @@ export default function Home() {
   const [imageResult, setImageResult] = useState(null); //url
   const [nftStorageProcessing, setNftStorageProcessing] = useState(false); //processing state ie. loading...
   const [CID, setCID] = useState(null); //url
+  const [pdfData, setPdfData] = useState(null); //url
 
   const setValue = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -119,7 +120,7 @@ export default function Home() {
       </div>
 
       <hr className="p-8" />
-      <PDFParser />
+      <PDFParser setPdfData={setPdfData} pdfData={pdfData} />
     </div>
   );
 }
