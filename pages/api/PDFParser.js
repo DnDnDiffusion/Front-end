@@ -18,7 +18,10 @@ export default function handler(req, res) {
         if (line == "") return;
         console.log(`line ${i}: `, line); //there is a better way to do this madness
         if (i == 4) playerData.name = line;
-        if (i == 6) playerData.class = line;
+        if (i == 6) {
+          playerData.class = line.split(" ")[0];
+          playerData.level = line.split(" ")[1];
+        }
         if (i == 8) playerData.xp = line;
         if (i == 10) playerData.playerName = line;
         if (i == 12) playerData.race = line;
@@ -36,6 +39,10 @@ export default function handler(req, res) {
         if (i == 37) playerData.cha = [line];
         if (i == 38) playerData.cha.push(line);
         if (i == 39) playerData.profBonus = line;
+
+        if (line.includes("Armor Worn")) {
+          playerData.armorWorn = line.split("Armor Worn: ")[1];
+        }
 
         // if (i == 81) playerData.ac = line;
         // if (i == 82) playerData.armorWorn = line;

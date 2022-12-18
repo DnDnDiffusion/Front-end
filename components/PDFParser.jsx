@@ -19,7 +19,7 @@ export default function PDFParser({ pdfData, setPdfData }) {
       body: body,
     });
     const data = await res.json();
-    console.log("data: ", data);
+    // console.log("data: ", data);
     setPdfData(data);
 
     //make the getImageRquest here and set the image state or maybe use this as a callback from parent to use a diff component for image upload to cloud gpu

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
 import PDFParser from "../components/PDFParser";
+import { createPrompt } from "../utils/promptGen";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -16,10 +17,21 @@ export default function Home() {
   const [nftStorageProcessing, setNftStorageProcessing] = useState(false); //processing state ie. loading...
   const [CID, setCID] = useState(null); //url
   const [pdfData, setPdfData] = useState(null); //url
+  const [prompt, setPrompt] = useState(null); //url
 
   const setValue = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (pdfData) {
+      console.log("pdfData: ", pdfData);
+      //create text prompt using pdfData and other data
+      const prompt = createPrompt(pdfData);
+      console.log("prompt: ", prompt);
+      setPrompt(prompt);
+    }
+  }, [pdfData]);
 
   // const send = async () => {
   //   setImageProcessing(true);
@@ -45,13 +57,13 @@ export default function Home() {
     setImageProcessing(true);
   };
 
-  const changeIt = async () => {
+  const toggleImageProcessing = async () => {
     setImageProcessing(false);
   };
   useEffect(() => {
     if (imageProcessing) {
       console.log(imageProcessing);
-      setTimeout(changeIt, 3000);
+      setTimeout(toggleImageProcessing, 3000);
     }
   }, [imageProcessing]);
 
@@ -120,7 +132,14 @@ export default function Home() {
       </div>
 
       <hr className="p-8" />
-      <PDFParser setPdfData={setPdfData} pdfData={pdfData} />
+      <div className="flex flex-col items-center">
+        {prompt && (
+          <p className=" max-w-4xl text-sm p-4">
+            <span className=" font-bold text-lg">PROMPT:</span> {prompt}
+          </p>
+        )}
+        <PDFParser setPdfData={setPdfData} pdfData={pdfData} />
+      </div>
     </div>
   );
 }
