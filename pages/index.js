@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
+import PDFParser from "../components/PDFParser";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -66,18 +67,8 @@ export default function Home() {
       {/* input takes in text for now, but eventually allows a .pdf upload */}
       {/* <form method="post"> */}
       <div id="inputs">
-        <input
-          onChange={(e) => setValue(e)}
-          type="text"
-          name="race"
-          placeholder="Enter your race"
-        />
-        <input
-          onChange={(e) => setValue(e)}
-          type="text"
-          name="class"
-          placeholder="Enter your class"
-        />
+        <input onChange={(e) => setValue(e)} type="text" name="race" placeholder="Enter your race" />
+        <input onChange={(e) => setValue(e)} type="text" name="class" placeholder="Enter your class" />
         <select id="gender" name="gender">
           <option value="Male">Male</option>
           <option value="Female">Female</option>
@@ -126,6 +117,9 @@ export default function Home() {
         <button type="button">Enhance!</button>
         <button type="button">Save as NFT</button>
       </div>
+
+      <hr className="p-8" />
+      <PDFParser />
     </div>
   );
 }
