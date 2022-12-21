@@ -2,10 +2,10 @@ import axios from "axios";
 
 export default function handler(req, res) {
   console.log("req", req.body.data); //this is your pdf to get sent
+  // const { data } = req.body;
   //fetch data via get request to SlyRacoon's GPU run pod (see endpoint documentation)
 
   //programmatically pass data
-  // upload to nft.storage
 
   let data = JSON.stringify({
     prompt: "Elf in a forest",
