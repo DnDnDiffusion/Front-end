@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function PDFParser({ pdfData, setPdfData }) {
+export default function PDFParser({ setPdfData }) {
   const [pdf, setPdf] = useState();
   // const [pdfData, setPdfData] = useState(); //can get pdfdata state from parent component instead of initializing here
 
@@ -26,30 +26,33 @@ export default function PDFParser({ pdfData, setPdfData }) {
   };
 
   return (
-    <div className="flex items-center gap-4 flex-col bg-black">
-      <div className="flex flex-col w-fit gap-2">
-        <input onChange={handlePDFChange} type="file" className="border-2 rounded-lg p-4 bg-yellow-500 bg-opacity-50" />
-        <button className=" bg-emerald-800 text-emerald-200 p-4 rounded-lg" onClick={handleUpload}>
-          Upload PDF
-        </button>
-      </div>
-      <div className="flex gap-2 flex-wrap justify-center items-center max-w-4xl h-28">
-        {
-          //if pdfData exists, loop through object and display key and value
-          pdfData &&
-            Object.entries(pdfData).map(([key, value]) => {
-              return (
-                <div
-                  key={key}
-                  className=" bg-violet-800 bg-opacity-50 border-2 rounded-lg p-6 h-full flex flex-col justify-center items-center min-w-[200px]"
-                >
-                  <p>{key}</p>
-                  <p>{value instanceof Array ? `${value[0]} : ${value[1]}` : value}</p>
-                </div>
-              );
-            })
-        }
-      </div>
+    // <div className="flex gap-4 flex-col bg-black">
+    <div className="flex flex-col w-fit gap-4">
+      <input onChange={handlePDFChange} type="file" className="" />
+      <button
+        className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+        onClick={handleUpload}
+      >
+        Upload
+      </button>
     </div>
+    // {/* <div className="flex gap-2 flex-wrap justify-center items-center max-w-4xl h-28">
+    //   {
+    //     //if pdfData exists, loop through object and display key and value
+    //     pdfData &&
+    //       Object.entries(pdfData).map(([key, value]) => {
+    //         return (
+    //           <div
+    //             key={key}
+    //             className=" bg-violet-800 bg-opacity-50 border-2 rounded-lg p-6 h-full flex flex-col justify-center items-center min-w-[200px]"
+    //           >
+    //             <p>{key}</p>
+    //             <p>{value instanceof Array ? `${value[0]} : ${value[1]}` : value}</p>
+    //           </div>
+    //         );
+    //       })
+    //   }
+    // </div> */}
+    // </div>
   );
 }

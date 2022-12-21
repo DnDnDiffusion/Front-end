@@ -14,9 +14,10 @@ export default function handler(req, res) {
       // console.log("data: ", data);
       //loop through data.text.split('\n') to get the data you need
       const playerData = {}; //could add better typing here ex. {name: string, class: string, xp: number}
+      let featureCount = 0;
       data.text.split("\n").forEach((line, i) => {
         if (line == "") return;
-        console.log(`line ${i}: `, line); //there is a better way to do this madness
+        // console.log(`line ${i}: `, line); //there is a better way to do this madness
         if (i == 4) playerData.name = line;
         if (i == 6) {
           playerData.class = line.split(" ")[0];
@@ -42,6 +43,15 @@ export default function handler(req, res) {
 
         if (line.includes("Armor Worn")) {
           playerData.armorWorn = line.split("Armor Worn: ")[1];
+        }
+        if (line.includes("Feature")) {
+          if (featureCount == 0) {
+            playerData.feature = line.split("Feature: ")[1].split(".")[0];
+            featureCount++;
+          }
+        }
+        if (line.includes("Alignment")) {
+          playerData.alignment = line.split("Alignment: ")[1].split(".")[0];
         }
 
         // if (i == 81) playerData.ac = line;
