@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
 import { createPrompt } from "../utils/promptGen";
@@ -47,7 +48,8 @@ export const Create = () => {
         data: prompt,
       }),
     }); //result is given as base64 encoded images
-    result = await fetchResult.json();
+    const result = await fetchResult.json();
+
     if (result.error) setError(result.error);
     setImageResult(result);
     setImageProcessing(false);
@@ -109,7 +111,7 @@ export const Create = () => {
                 Generate Images
               </p>
             ) : (
-              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Upload</p>
+              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Upload first!</p>
             )}
           </div>
         </div>

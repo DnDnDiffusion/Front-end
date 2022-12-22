@@ -18,10 +18,8 @@ export default function handler(req, res) {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      res.status(200).json({
-        imageUrl: "data:image/png;base64," + response.data["images"][0],
-      });
+      // console.log("RESPONSE DATA", response.data.data[0]);
+      res.status(200).json(response.data.data[0]);
     })
     .catch(function (error) {
       console.log(error);
@@ -34,3 +32,9 @@ export default function handler(req, res) {
   //   imageUrl: "data:image/png;base64," + "test",
   // });
 }
+
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};

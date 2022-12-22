@@ -24,36 +24,6 @@ export default function Home() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  // useEffect(() => {
-  //   if (pdfData) {
-  //     console.log("pdfData: ", pdfData);
-  //     //create text prompt using pdfData and other data
-  //     const prompt = createPrompt(pdfData);
-  //     console.log("prompt: ", prompt);
-  //     setPrompt(prompt);
-  //   }
-  // }, [pdfData]);
-
-  // const send = async () => {
-  //   setImageProcessing(true);
-  //   console.log("data: ", data);
-  //   //send req to backend with data to get the goods
-  //   let result = await fetch("/api/getImage", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       data: data,
-  //     }),
-  //   }); //result is given as a URL in S3 bucket or smth
-  //   result = await result.json();
-  //   if (result.error) setError(result.error);
-  //   console.log("result from image processing", result);
-  //   setImageResult(result);
-  //   setImageProcessing(false);
-  // };
   const send = async () => {
     setImageProcessing(true);
   };
@@ -77,69 +47,8 @@ export default function Home() {
 
   return (
     <div id="bodytype">
-      <h1>D&D Diffusio</h1>
-      {/* input takes in text for now, but eventually allows a .pdf upload */}
-      {/* <form method="post"> */}
-      <div id="inputs">
-        <input onChange={(e) => setValue(e)} type="text" name="race" placeholder="Enter your race" />
-        <input onChange={(e) => setValue(e)} type="text" name="class" placeholder="Enter your class" />
-        <select id="gender" name="gender">
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Non-Binary">Non-Binary</option>
-        </select>
-
-        <button onClick={send} type="submit" name="submit">
-          {imageProcessing ? "Waiting for image..." : "Send"}
-        </button>
-      </div>
-      <br></br>
-      <div id="imagegeneration">
-        <Image
-          src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-          alt="sweating-nervous"
-          width={256}
-          height={256}
-        />
-        {imageProcessing ? (
-          <Image
-            src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
-            alt="sweating-nervous"
-            width={256}
-            height={256}
-          />
-        ) : (
-          "image not loading"
-        )}
-        {imageResult && (
-          <>
-            <div class="div-child">
-              <Image src={imageResult.imageUrl} alt={"its your image!"} />
-            </div>
-            <div class="div-child">
-              {nftStorageProcessing ? (
-                <p>Waiting for NFT Storage...</p>
-              ) : (
-                <button onClick={storeImage}>Store Image</button>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-      {CID && <p>Image stored at CID: {CID}</p>}
-      <div id="inputs">
-        <button type="button">Enhance!</button>
-        <button type="button">Save as NFT</button>
-      </div>
-
-      <hr className="p-8" />
+      <h1>D&D Diffusion</h1>
       <div className="flex flex-col items-center">
-        {/* {prompt && (
-          <p className=" max-w-4xl text-sm p-4">
-            <span className=" font-bold text-lg">PROMPT:</span> {prompt}
-          </p>
-        )} */}
-        {/* <PDFParser setPdfData={setPdfData} pdfData={pdfData} /> */}
         <Create />
       </div>
     </div>
