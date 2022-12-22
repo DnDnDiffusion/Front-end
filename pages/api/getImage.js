@@ -2,24 +2,18 @@ import axios from "axios";
 
 export default function handler(req, res) {
   console.log("req", req.body.data); //this is your pdf to get sent
-  // const { data } = req.body;
-  //fetch data via get request to SlyRacoon's GPU run pod (see endpoint documentation)
+  const { data } = req.body;
 
-  //programmatically pass data
-
-  let data = JSON.stringify({
-    prompt: "Elf in a forest",
-    steps: 50,
-    sampler_index: "DDIM",
-  });
+  const stringData = JSON.stringify({ data: [data] });
+  console.log("data being sent", stringData);
 
   let config = {
     method: "post",
-    url: "http://127.0.0.1:7860/sdapi/v1/txt2img",
+    url: "https://f567fe8f-ca76-4c39.gradio.live/run/predict",
     headers: {
       "Content-Type": "application/json",
     },
-    data: data,
+    data: stringData,
   };
 
   axios(config)
@@ -35,4 +29,8 @@ export default function handler(req, res) {
         error: "Error generating image",
       });
     });
+
+  // res.status(200).json({
+  //   imageUrl: "data:image/png;base64," + "test",
+  // });
 }

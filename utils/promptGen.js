@@ -1,5 +1,7 @@
 const descriptives = "in the style of <who?>, unreal 5 render, realistic, 8k";
 
+//TODO: dont use positive negative, use -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 MAYBE
+
 const conversions = {
   cha: { positive: "charismatic", negative: "poorly spoken" },
   con: { positive: "healthy", negative: "sickly" },
@@ -52,11 +54,11 @@ const createPrompt = (data) => {
   });
   console.log("adjectives: ", adjectives);
 
-  return `
-    ${data.name}, a level ${data.level}, ${adjectives[0]} ${adjectives[1] ? adjectives[1] : ""} ${data.background} ${
-    conversions[data.race.toLowerCase()]
-  } ${conversions[data.class.toLowerCase()]} wearing ${data.armorWorn} and holding a <insert weapon>, ${descriptives}
-  `;
+  return `${data.name}, a level ${data.level}, ${adjectives[0]} ${adjectives[1] ? adjectives[1] : ""} ${
+    data.background
+  } ${conversions[data.race.toLowerCase()]} ${conversions[data.class.toLowerCase()]} wearing ${
+    data.armorWorn
+  } and holding a <insert weapon>, ${descriptives}`;
 };
 
 module.exports = { createPrompt };

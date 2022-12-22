@@ -27,12 +27,30 @@ export const Create = () => {
   const mintAvatar = async () => {
     setIsMinting(true);
     console.log("Minting avatar...");
+    // upload image to ipfs
+    //create standard metadata object
+    //add cid to metadata object
+    //upload metadata to ipfs
+    //mint nft
   };
 
   const generateImages = async () => {
-    setImageProcessing(true);
     console.log("Generating images...");
-    setImageResult("https://i.imgur.com/4Z0Z1Zm.png");
+    setImageProcessing(true);
+    const fetchResult = await fetch("/api/getImage", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        data: prompt,
+      }),
+    }); //result is given as base64 encoded images
+    result = await fetchResult.json();
+    if (result.error) setError(result.error);
+    setImageResult(result);
+    setImageProcessing(false);
   };
 
   return (
@@ -99,7 +117,7 @@ export const Create = () => {
         {/* images grid */}
         <div className="w-2/3">
           {/* a grid of 9 images */}
-          <CreateImageGrid />
+          <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} />
         </div>
       </div>
 

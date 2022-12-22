@@ -53,25 +53,11 @@ export default function handler(req, res) {
         if (line.includes("Alignment")) {
           playerData.alignment = line.split("Alignment: ")[1].split(".")[0];
         }
-
-        // if (i == 81) playerData.ac = line;
-        // if (i == 82) playerData.armorWorn = line;
-
-        // if (i == 121) playerData.bgFeature = line;
-        // if (i == 122) playerData.bgFeatureDesc = line;
-        // if (i == 123) playerData.bgTraits = line;
-        // if (i == 125) playerData.bgIdeal = line;
-        // if (i == 126) playerData.bgBond = line;
-        // if (i == 127) playerData.bgFlaw = line;
-
-        // if (i == 129) playerData.creatureType = line;
-        // if (i == 130) playerData.creatureAge = line;
-        // if (i == 131) playerData.creatureSize = line;
       });
-
       res.status(200).json(playerData);
     });
   });
+
   // res.status(200).json({ status: "Done" });
 }
 
