@@ -70,7 +70,7 @@ export const Create = () => {
           <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
-            <p className="w-full">{JSON.stringify(pdfData)}</p>
+            <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
           </div>
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Prompt:</h3>
