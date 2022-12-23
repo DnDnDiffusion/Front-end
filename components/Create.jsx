@@ -56,73 +56,74 @@ export const Create = () => {
   };
 
   return (
-    <div className="flex w-full gap-2 justify-start items-start">
-      {/* left column */}
-      <div className="flex flex-col w-2/5 p-4 gap-4 justify-around">
-        <div className="w-full h-full text-left">
-          <h2 className=" text-4xl">Create</h2>
-        </div>
-        <PDFParser setPdfData={setPdfData} />
-        <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
-          <h3>Character Stats:</h3>
-          <p className="w-full">{JSON.stringify(pdfData)}</p>
-        </div>
-        <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
-          <h3>Prompt:</h3>
-          <p className="">{prompt}</p>
-        </div>
-      </div>
-
-      {/* right column */}
-      <div className="flex w-3/5 bg-[#110402] text-left h-full">
-        {/* choosing column */}
-        <div className="w-1/3 p-2">
-          <div className="">
-            <h2 className="text-2xl">Result Images</h2>
-            <p>Press "upload" to begin generating your avatar.</p>
+    <div>
+      <div className="flex flex-wrap xl:flex-nowrap w-full gap-2 justify-start items-start">
+        {/* left column */}
+        <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
+          <div className="w-full h-full text-left">
+            <h2 className=" text-4xl">Create</h2>
           </div>
+          <PDFParser setPdfData={setPdfData} />
+          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
+            <h3>Character Stats:</h3>
+            <p className="w-full">{JSON.stringify(pdfData)}</p>
+          </div>
+          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
+            <h3>Prompt:</h3>
+            <p className="">{prompt}</p>
+          </div>
+        </div>
 
-          <div className="flex flex-col items-center">
-            <div className="flex flex-col">
-              <img src="/images/CREATE/placeholder.png" alt="" />
-              <p className="text-sm italic">Click to enlarge</p>
+        {/* right column */}
+        <div className="flex md:flex-nowrap flex-wrap xl:w-3/5 lg:w-full bg-[#110402] text-left h-full">
+          {/* choosing column */}
+          <div className="md:w-1/3 p-2">
+            <div className="">
+              <h2 className="text-2xl">Result Images</h2>
+              <p>Press "upload" to begin generating your avatar.</p>
             </div>
-            {isMinting ? (
-              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Minting...</p>
-            ) : imageResult ? (
-              <p
-                className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
-                onClick={mintAvatar}
-              >
-                Mint Avatar
-              </p>
-            ) : imageProcessing ? (
-              <p
-                className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
-                // onClick={mintAvatar}
-              >
-                images loading...
-              </p>
-            ) : pdfData ? (
-              <p
-                className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
-                onClick={generateImages}
-              >
-                Generate Images
-              </p>
-            ) : (
-              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Upload first!</p>
-            )}
+
+            <div className="flex flex-col items-center">
+              <div className="flex flex-col">
+                <img src="/images/CREATE/placeholder.png" alt="" />
+                <p className="text-sm italic">Click to enlarge</p>
+              </div>
+              {isMinting ? (
+                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Minting...</p>
+              ) : imageResult ? (
+                <p
+                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  onClick={mintAvatar}
+                >
+                  Mint Avatar
+                </p>
+              ) : imageProcessing ? (
+                <p
+                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  // onClick={mintAvatar}
+                >
+                  images loading...
+                </p>
+              ) : pdfData ? (
+                <p
+                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  onClick={generateImages}
+                >
+                  Generate Images
+                </p>
+              ) : (
+                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Upload first!</p>
+              )}
+            </div>
+          </div>
+
+          {/* images grid */}
+          <div className="md:w-2/3">
+            {/* a grid of 9 images */}
+            <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} />
           </div>
         </div>
-
-        {/* images grid */}
-        <div className="w-2/3">
-          {/* a grid of 9 images */}
-          <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} />
-        </div>
       </div>
-
       {/* bottom box */}
       <div></div>
     </div>
