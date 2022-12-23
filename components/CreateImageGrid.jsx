@@ -11,14 +11,14 @@ export const CreateImageGrid = ({ imageProcessing, imageResult, error, pdfData }
 
   if (error)
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-full text-3xl">
         <p className=" text-red-400">{error}</p>
       </div>
     );
   if (imageProcessing)
     //TODO: RENDER TIPS
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-full text-3xl">
         <Image
           src="https://media.tenor.com/43s33wGTNo0AAAAC/sweating-nervous.gif"
           alt="sweating-nervous"
