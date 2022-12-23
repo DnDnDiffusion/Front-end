@@ -74,7 +74,7 @@ export const Create = () => {
           </div>
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Prompt:</h3>
-            <p className="">{prompt}</p>
+            <input onChange={(e) => setPrompt(e.target.value)} className="" value={prompt} />
           </div>
         </div>
 
