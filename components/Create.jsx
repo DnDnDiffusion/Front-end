@@ -72,9 +72,13 @@ export const Create = () => {
             <h3>Character Stats:</h3>
             <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
           </div>
-          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
+          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2 h-full">
             <h3>Prompt:</h3>
-            <input onChange={(e) => setPrompt(e.target.value)} className="" value={prompt} />
+            <textarea
+              onChange={(e) => setPrompt(e.target.value)}
+              className="w-full h-full bg-transparent"
+              value={prompt || ""}
+            />
           </div>
         </div>
 
