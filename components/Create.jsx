@@ -49,10 +49,13 @@ export const Create = () => {
       }),
     }); //result is given as base64 encoded images
     const result = await fetchResult.json();
+    console.log("result: ", result);
 
-    if (result.error) setError(result.error);
-    setImageResult(result);
     setImageProcessing(false);
+    if (result.error) {
+      return setError(result.error);
+    }
+    setImageResult(result);
   };
 
   return (
@@ -120,7 +123,7 @@ export const Create = () => {
           {/* images grid */}
           <div className="md:w-2/3">
             {/* a grid of 9 images */}
-            <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} />
+            <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} error={error} />
           </div>
         </div>
       </div>

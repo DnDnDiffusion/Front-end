@@ -2,13 +2,19 @@ import Image from "next/image";
 import React from "react";
 import { useEffect } from "react";
 
-export const CreateImageGrid = ({ imageProcessing, imageResult }) => {
+export const CreateImageGrid = ({ imageProcessing, imageResult, error }) => {
   useEffect(() => {
     if (imageProcessing) console.log("imageProcessing: ", imageProcessing);
     // console.log("imageProcessing: ", imageProcessing);
     // console.log("imageResult: ", imageResult);
   }, [imageProcessing, imageResult]);
 
+  if (error)
+    return (
+      <div className="flex justify-center items-center">
+        <p className=" text-red-400">{error}</p>
+      </div>
+    );
   if (imageProcessing)
     return (
       <div className="flex justify-center items-center">
@@ -22,7 +28,7 @@ export const CreateImageGrid = ({ imageProcessing, imageResult }) => {
     );
   if (imageResult)
     return (
-      <div>
+      <div className="flex justify-center items-center">
         Image result: <img src={imageResult} alt="" />
       </div>
     );
