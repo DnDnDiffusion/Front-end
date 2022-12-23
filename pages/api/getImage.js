@@ -9,7 +9,7 @@ export default function handler(req, res) {
 
   let config = {
     method: "post",
-    url: "https://f567fe8f-ca76-4c39.gradio.live/run/predict",
+    url: process.env.SD_API_ENDPOINT,
     headers: {
       "Content-Type": "application/json",
     },
