@@ -60,13 +60,13 @@ export const Create = () => {
 
   return (
     <div>
-      <div className="flex flex-wrap xl:flex-nowrap w-full gap-2 justify-start items-start">
+      <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left">
             <h2 className=" text-4xl">Create</h2>
           </div>
-          <PDFParser setPdfData={setPdfData} />
+          <PDFParser setPdfData={setPdfData} pdfData={pdfData} />
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
             <p className="w-full">{JSON.stringify(pdfData)}</p>
@@ -92,38 +92,47 @@ export const Create = () => {
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
-                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Minting...</p>
+                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
+                  Minting...
+                </p>
               ) : imageResult ? (
                 <p
-                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
                   onClick={mintAvatar}
                 >
                   Mint Avatar
                 </p>
               ) : imageProcessing ? (
                 <p
-                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed"
                   // onClick={mintAvatar}
                 >
                   images loading...
                 </p>
               ) : pdfData ? (
                 <p
-                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black"
+                  className="w-fit bg-emerald-600 hover:bg-emerald-500 py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
                   onClick={generateImages}
                 >
                   Generate Images
                 </p>
               ) : (
-                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black">Upload first!</p>
+                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
+                  Upload first!
+                </p>
               )}
             </div>
           </div>
 
           {/* images grid */}
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 min-h-[660px]">
             {/* a grid of 9 images */}
-            <CreateImageGrid imageResult={imageResult} imageProcessing={imageProcessing} error={error} />
+            <CreateImageGrid
+              imageResult={imageResult}
+              imageProcessing={imageProcessing}
+              error={error}
+              pdfData={pdfData}
+            />
           </div>
         </div>
       </div>
