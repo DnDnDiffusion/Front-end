@@ -22,6 +22,7 @@ export const Create = () => {
       const prompt = createPrompt(pdfData);
       console.log("prompt: ", prompt);
       setPrompt(prompt);
+      setError(null);
     }
   }, [pdfData]);
 
@@ -66,7 +67,7 @@ export const Create = () => {
           <div className="w-full h-full text-left">
             <h2 className=" text-4xl">Create</h2>
           </div>
-          <PDFParser setPdfData={setPdfData} pdfData={pdfData} />
+          <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
             <p className="w-full">{JSON.stringify(pdfData)}</p>
@@ -103,10 +104,7 @@ export const Create = () => {
                   Mint Avatar
                 </p>
               ) : imageProcessing ? (
-                <p
-                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed"
-                  // onClick={mintAvatar}
-                >
+                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
                   images loading...
                 </p>
               ) : pdfData ? (

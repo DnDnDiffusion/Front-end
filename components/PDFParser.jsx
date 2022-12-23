@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function PDFParser({ setPdfData, pdfData }) {
+export default function PDFParser({ setPdfData, pdfData, setError }) {
   const [pdf, setPdf] = useState(null);
 
   const handlePDFChange = (e) => {
@@ -13,15 +13,23 @@ export default function PDFParser({ setPdfData, pdfData }) {
     if (!pdf) return;
     const body = new FormData();
     body.set("file", pdf);
-
-    const res = await fetch("/api/PDFParser", {
-      method: "POST",
-      body: body,
-    });
-    // console.log("raw res parse dpf: ", res);
-    const data = await res.json();
-    // console.log("data: ", data);
-    setPdfData(data);
+    try {
+      const res = await fetch("/api/PDFParser", {
+        method: "POST",
+        body: body,
+      });
+      // console.log("raw res parse dpf: ", res);
+      const data = await res.json();
+      // console.log("data: ", data);
+      if (data.error) {
+        setError(data.error);
+        return;
+      }
+      setPdfData(data);
+    } catch (error) {
+      console.log("error: ", error);
+      setError(error);
+    }
   };
 
   useEffect(() => {
