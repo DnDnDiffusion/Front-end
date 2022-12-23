@@ -42,7 +42,7 @@ export const CreateImageGrid = ({ imageProcessing, imageResult, error, pdfData }
   else if (pdfData) {
     return (
       <div className="flex justify-center items-center h-full text-3xl">
-        <p className=" text-emerald-400">We've got your character sheet parsed, you can now generate your image!</p>
+        <p className=" text-emerald-400">We have your character sheet parsed, you can now generate your image!</p>
       </div>
     );
   }

@@ -84,7 +84,9 @@ export const Create = () => {
           <div className="md:w-1/3 p-2">
             <div className="">
               <h2 className="text-2xl">Result Images</h2>
-              <p>Press "upload" to begin generating your avatar.</p>
+              <p>
+                Press <span className=" italic">upload</span> to begin generating your avatar.
+              </p>
             </div>
 
             <div className="flex flex-col items-center">
