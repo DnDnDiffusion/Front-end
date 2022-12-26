@@ -2,6 +2,10 @@
 
 Make sure your PDF has selectable text, and made after 12/25/2022 using fastcharacter.com to generate it.  On the generated character sheet, select Print, and set the printer to Print to PDF.
 
+Sometimes this method still produces errors in our system. Such as here:
+![image](https://user-images.githubusercontent.com/62179036/209496348-fdce950d-d2aa-433b-8939-b9fba58d2cc9.png)
+--Uploading a level 3 Zeed pdf ([badPDF/ here is the badPDF level 3 zeed](https://github.com/DnDnDiffusion/Front-end/tree/main/acceptablePDF/badPDF)) created immediately after a level 2 (included in this folder).
+
 # Not all character sheets are Dragonborn
 
 We know, we are just getting started.
