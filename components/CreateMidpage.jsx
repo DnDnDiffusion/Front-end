@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-export default function Content() {
+export default function CreateMidpage() {
     return (
         <div>
             {/* Content in the center */}
@@ -16,17 +16,17 @@ export default function Content() {
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
                     <p>Upload standard</p>
                     <p>Character sheet PDF</p>
-                    <img src="" alt="icon1" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon1.png" alt="icon1" className="w-40 h-40 object-contain pt-5" />
                 </div>
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
                     <p>Fine Tuned AI Models and parsing</p>
                     <p>algorithms generate data</p>
-                    <img src="" alt="icon2" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon2.png" alt="icon2" className="w-40 h-40 object-contain pt-5" />
                 </div>
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] p-6 w-1/3">
                     <p>Reveive 3, 4 or 9 avatar images</p>
                     <p>based on your character sheet</p>
-                    <img src="" alt="icon3" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon3.png" alt="icon3" className="w-40 h-40 object-contain pt-5" />
                 </div>
             </div>
 
@@ -43,16 +43,16 @@ export default function Content() {
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
                     <p>Mint an ERC721</p>
                     <p>CNFT Avatar</p>
-                    <img src="" alt="icon1" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon4.png" alt="icon4" className="w-40 h-40 object-contain pt-5" />
                 </div>
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
                     <p>Join the community</p>
-                    <img src="" alt="icon2" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon5.png" alt="icon5" className="w-40 h-40 object-contain pt-5" />
                 </div>
                 <div className="flex flex-col justify-center align-center items-center bg-[#110402] p-6 w-1/3">
                     <p>Buy interactive</p>
                     <p>dice to get gold</p>
-                    <img src="" alt="icon3" className="w-40 h-40 object-contain pt-5" />
+                    <img src="/images/CREATE-midpage/icon6.png" alt="icon6" className="w-40 h-40 object-contain pt-5" />
                 </div>
             </div>
 
