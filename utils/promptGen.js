@@ -54,11 +54,16 @@ const createPrompt = (data) => {
   });
   console.log("adjectives: ", adjectives);
 
-  return `${data.name}, a level ${data.level}, ${adjectives[0]} ${adjectives[1] ? adjectives[1] : ""} ${
-    data.background
-  } ${conversions[data.race.toLowerCase()]} ${conversions[data.class.toLowerCase()]} wearing ${
-    data.armorWorn
-  } and holding a <insert weapon>, ${descriptives}`;
+  return `${data.name}, a level ${data.level}, ${adjectives[0]} ${
+    adjectives[1] ? adjectives[1] : ""
+  } ${data.background} ${conversions[data.race.toLowerCase()]} ${
+    conversions[data.class.toLowerCase()]
+  } wearing ${data.armorWorn} and holding a <insert weapon>, ${descriptives}`;
 };
 
-module.exports = { createPrompt };
+const getSmartPrompt = (data) => {
+  // gets the prompt from front end and returns a smart prompt, using GPT-3
+  console.log("data: ", data);
+};
+
+module.exports = { createPrompt, getSmartPrompt };

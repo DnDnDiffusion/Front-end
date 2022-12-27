@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
-import { createPrompt } from "../utils/promptGen";
+import { createPrompt, getSmartPrompt } from "../utils/promptGen";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
 
@@ -12,6 +12,28 @@ export const Create = () => {
   const [error, setError] = useState(null); //error msg
   const [imageResult, setImageResult] = useState(null); //url
   const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
+  const [apiOutput, setApiOutput] = useState("");
+  const [isGPT, setIsGPT] = useState(false);
+
+  const callGPTEndpoint = async () => {
+    setIsGPT(true);
+
+    console.log("Calling OpenAI...");
+    const response = await fetch("/api/gpt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
+
+    const data = await response.json();
+    const { output } = data;
+    console.log("OpenAI replied...", output.text);
+
+    setApiOutput(`${output.text}`);
+    setIsGPT(false);
+  };
 
   //states: no data, pdf uploaded, images generated, nft minted
 
@@ -67,18 +89,45 @@ export const Create = () => {
           <div className="w-full h-full text-left">
             <h2 className=" text-4xl">Create</h2>
           </div>
-          <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
+          <PDFParser
+            setPdfData={setPdfData}
+            pdfData={pdfData}
+            setError={setError}
+          />
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
             <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
           </div>
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2 h-full">
-            <h3>Prompt:</h3>
+            <h3>
+              Prompt:
+              <button
+                onClick={() => callGPTEndpoint()}
+                // onClick={() => getSmartPrompt(prompt)}
+                className="p-1 underline hover:bg-violet-600"
+              >
+                {isGPT ? "Communicating with OpenAI..." : "Activate GPT"}
+              </button>
+            </h3>
             <textarea
+              placeholder="start typing your prompt here..."
+              id="promptarea"
               onChange={(e) => setPrompt(e.target.value)}
-              className="w-full h-full bg-transparent"
+              className="prompty w-full h-full bg-transparent"
               value={prompt || ""}
             />
+            {apiOutput && (
+              <div className="output">
+                <div className="output-header-container">
+                  <div className="output-header">
+                    <h3>Output</h3>
+                  </div>
+                </div>
+                <div className="output-content">
+                  <p>{apiOutput}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -89,7 +138,8 @@ export const Create = () => {
             <div className="">
               <h2 className="text-2xl">Result Images</h2>
               <p>
-                Press <span className=" italic">upload</span> to begin generating your avatar.
+                Press <span className=" italic">upload</span> to begin
+                generating your avatar.
               </p>
             </div>
 
