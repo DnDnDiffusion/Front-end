@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
 import PDFParser from "../components/PDFParser";
+import Header from "../components/Header";
+
 // import { createPrompt } from "../utils/promptGen";
 import { Create } from "../components/Create";
+
 
 export default function Home() {
   const [data, setData] = useState({
@@ -46,9 +49,9 @@ export default function Home() {
   };
 
   return (
-    <div id="bodytype">
-      <h1>D&D Diffusion</h1>
-      <div className="flex flex-col items-center">
+    <div>
+      <Header />
+      <div >
         <Create />
       </div>
     </div>
