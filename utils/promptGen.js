@@ -54,7 +54,7 @@ const createPrompt = (data) => {
   });
   console.log("adjectives: ", adjectives);
 
-  return `${data.name}, a level ${data.level}, ${adjectives[0]} ${adjectives[1] ? adjectives[1] : ""} ${
+  return `${data.name}, a ${data.gender} level ${data.level}, ${adjectives[0]} ${adjectives[1] ? adjectives[1] : ""} ${
     data.background
   } ${conversions[data.race.toLowerCase()]} ${conversions[data.class.toLowerCase()]} wearing ${
     data.armorWorn

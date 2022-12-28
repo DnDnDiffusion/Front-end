@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
 import { createPrompt } from "../utils/promptGen";
+import { CharacterBackstory } from "./CharacterBackstory";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
 
@@ -63,6 +64,11 @@ export const Create = () => {
     setImageResult(result);
   };
 
+  const handleGenderSelect = (e) => {
+    console.log(e.target.value);
+    setPdfData({ ...pdfData, gender: e.target.value });
+  };
+
   return (
     <div>
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
@@ -72,6 +78,15 @@ export const Create = () => {
             <h2 className=" text-4xl">Create</h2>
           </div>
           <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
+          {pdfData && (
+            <div>
+              <select onChange={handleGenderSelect} name="" id="">
+                <option value="">Select a gender (or don't)</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+          )}
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
             <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
@@ -146,7 +161,9 @@ export const Create = () => {
         </div>
       </div>
       {/* bottom box */}
-      <div></div>
+      <div className="flex justify-center">
+        <CharacterBackstory pdfData={pdfData} />
+      </div>
     </div>
   );
 };
