@@ -11,6 +11,7 @@ export const Create = () => {
   const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
   const [error, setError] = useState(null); //error msg
   const [imageResult, setImageResult] = useState(null); //url
+  const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
   const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
 
   //states: no data, pdf uploaded, images generated, nft minted
@@ -34,10 +35,13 @@ export const Create = () => {
     //add cid to metadata object
     //upload metadata to ipfs
     //mint nft
+    //check for error
+    //isminting = false
   };
 
   const generateImages = async () => {
     console.log("Generating images...");
+    setError(false);
     setImageProcessing(true);
     const fetchResult = await fetch("/api/getImage", {
       method: "POST",
@@ -95,7 +99,7 @@ export const Create = () => {
 
             <div className="flex flex-col items-center">
               <div className="flex flex-col">
-                <img src="/images/CREATE/placeholder.png" alt="" />
+                <img src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
@@ -136,6 +140,7 @@ export const Create = () => {
               imageProcessing={imageProcessing}
               error={error}
               pdfData={pdfData}
+              setSelectedImage={setSelectedImage}
             />
           </div>
         </div>
