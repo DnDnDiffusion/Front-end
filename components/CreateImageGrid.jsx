@@ -38,8 +38,8 @@ export const CreateImageGrid = ({ imageProcessing, imageResult, error, pdfData, 
   else if (imageResult)
     return (
       <div className="flex justify-center items-center">
-        {imageResult.images.map((image) => {
-          return <img className="w-1/2" onClick={() => setSelectedImage(image)} src={image} alt="" />;
+        {imageResult.images.map((image, i) => {
+          return <img className="w-1/2" key={i} onClick={() => setSelectedImage(image)} src={image} alt="" />;
         })}
       </div>
     );
