@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
 import { createPrompt } from "../utils/promptGen";
+import { CharacterBackstory } from "./CharacterBackstory";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
 
@@ -11,6 +12,7 @@ export const Create = () => {
   const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
   const [error, setError] = useState(null); //error msg
   const [imageResult, setImageResult] = useState(null); //url
+  const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
   const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
 
   //states: no data, pdf uploaded, images generated, nft minted
@@ -34,10 +36,13 @@ export const Create = () => {
     //add cid to metadata object
     //upload metadata to ipfs
     //mint nft
+    //check for error
+    //isminting = false
   };
 
   const generateImages = async () => {
     console.log("Generating images...");
+    setError(false);
     setImageProcessing(true);
     const fetchResult = await fetch("/api/getImage", {
       method: "POST",
@@ -59,6 +64,11 @@ export const Create = () => {
     setImageResult(result);
   };
 
+  const handleGenderSelect = (e) => {
+    console.log(e.target.value);
+    setPdfData({ ...pdfData, gender: e.target.value });
+  };
+
   return (
     <div>
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
@@ -68,6 +78,15 @@ export const Create = () => {
             <h2 className=" text-4xl">Create</h2>
           </div>
           <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
+          {pdfData && (
+            <div>
+              <select onChange={handleGenderSelect} name="" id="">
+                <option value="">Select a gender (or dont)</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+              </select>
+            </div>
+          )}
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
             <h3>Character Stats:</h3>
             <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
@@ -94,8 +113,8 @@ export const Create = () => {
             </div>
 
             <div className="flex flex-col items-center">
-              <div className="flex flex-col">
-                <img src="/images/CREATE/placeholder.png" alt="" />
+              <div className="flex flex-col justify-center items-center">
+                <img className="w-1/2" src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
@@ -136,12 +155,15 @@ export const Create = () => {
               imageProcessing={imageProcessing}
               error={error}
               pdfData={pdfData}
+              setSelectedImage={setSelectedImage}
             />
           </div>
         </div>
       </div>
       {/* bottom box */}
-      <div></div>
+      <div className="flex justify-center">
+        <CharacterBackstory pdfData={pdfData} />
+      </div>
     </div>
   );
 };

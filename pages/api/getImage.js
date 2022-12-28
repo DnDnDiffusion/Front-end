@@ -4,7 +4,19 @@ export default function handler(req, res) {
   console.log("req", req.body.data); //this is your pdf to get sent
   const { data } = req.body;
 
-  const stringData = JSON.stringify({ data: [data] });
+  const obj = {
+    prompt: data,
+    seed: 10000,
+    batch_size: 2,
+    n_iter: 1,
+    steps: 50,
+    cfg_scale: 7,
+    width: 512,
+    height: 512,
+    sampler_index: "Euler a",
+  };
+
+  const stringData = JSON.stringify(obj);
   console.log("data being sent", stringData);
 
   let config = {
@@ -18,8 +30,13 @@ export default function handler(req, res) {
 
   axios(config)
     .then(function (response) {
-      // console.log("RESPONSE DATA", response.data.data[0]);
-      res.status(200).json(response.data.data[0]);
+      //format images with 'data:image/png;base64,' at the front
+      response.data.images.forEach((image, i) => {
+        response.data.images[i] = "data:image/png;base64," + image;
+      });
+      console.log("RESPONSE DATA", response.data);
+
+      res.status(200).json(response.data);
     })
     .catch(function (error) {
       console.log(error);

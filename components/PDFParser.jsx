@@ -34,6 +34,7 @@ export default function PDFParser({ setPdfData, pdfData, setError }) {
 
   useEffect(() => {
     if (pdf) {
+      setError(null);
       handleUpload();
     }
   }, [pdf]);
