@@ -81,7 +81,7 @@ export const Create = () => {
           {pdfData && (
             <div>
               <select onChange={handleGenderSelect} name="" id="">
-                <option value="">Select a gender (or don't)</option>
+                <option value="">Select a gender (or dont)</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
               </select>
