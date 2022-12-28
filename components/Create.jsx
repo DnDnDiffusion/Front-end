@@ -113,8 +113,8 @@ export const Create = () => {
             </div>
 
             <div className="flex flex-col items-center">
-              <div className="flex flex-col">
-                <img src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
+              <div className="flex flex-col justify-center items-center">
+                <img className="w-1/2" src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
