@@ -5,6 +5,7 @@ import { createPrompt } from "../utils/promptGen";
 import { CharacterBackstory } from "./CharacterBackstory";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
+import Placeholder from "../public/images/CREATE/placeholder.png";
 
 export const Create = () => {
   const [pdfData, setPdfData] = useState(null); //url
@@ -75,9 +76,15 @@ export const Create = () => {
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left">
-            <h2 className=" text-4xl">Create</h2>
+            <h2 id="create" className=" text-4xl">
+              Create
+            </h2>
           </div>
-          <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
+          <PDFParser
+            setPdfData={setPdfData}
+            pdfData={pdfData}
+            setError={setError}
+          />
           {pdfData && (
             <div>
               <select onChange={handleGenderSelect} name="" id="">
@@ -108,13 +115,18 @@ export const Create = () => {
             <div className="">
               <h2 className="text-2xl">Result Images</h2>
               <p>
-                Press <span className=" italic">upload</span> to begin generating your avatar.
+                Press <span className=" italic">upload</span> to begin
+                generating your avatar.
               </p>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="flex flex-col justify-center items-center">
-                <img className="w-1/2" src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
+                <Image
+                  className="w-1/2"
+                  src={selectedImage || Placeholder}
+                  alt=""
+                />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
