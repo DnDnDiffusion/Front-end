@@ -6,6 +6,7 @@ import { CharacterBackstory } from "./CharacterBackstory";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
 import Placeholder from "../public/images/CREATE/placeholder.png";
+import HelpToggle from "./HelpToggle";
 
 export const Create = () => {
   const [pdfData, setPdfData] = useState(null); //url
@@ -75,10 +76,11 @@ export const Create = () => {
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
-          <div className="w-full h-full text-left">
+          <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
               Create
             </h2>
+            <HelpToggle />
           </div>
           <PDFParser
             setPdfData={setPdfData}
