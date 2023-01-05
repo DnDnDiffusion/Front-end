@@ -22,7 +22,7 @@
 
 > follow these steps to run our front-end on your local machine.
 1. Git clone this front-end `git clone git@github.com:DnDnDiffusion/Front-end.git`
-1. If you want to contribute quickly, switch to the welcome branch and add your name to the guest list. Commit with your preferred "class name" `git commit -m "star druid"`, and then push the changes to welcome branch.
+1. If you want to contribute quickly, fork this repo, checkout the welcome branch and add your name to the `ContributorsList.md`. Commit with your preferred D&D "class name" `git commit -m "star druid"`, and then push the changes to welcome branch.  Come back and make a Pull Request (PR) to the staging branch.
 1. run `npm install` in the Front-end directory
 > see Front-end setup below
 1. Open your browser to `http://localhost:3000/` and enjoy!
