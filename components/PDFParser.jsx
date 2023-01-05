@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 
 export default function PDFParser({ setPdfData, pdfData, setError }) {
   const [pdf, setPdf] = useState(null);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   const handlePDFChange = (e) => {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
+    e.preventDefault();
+    console.log("e: ", e.target.file, e.dataTransfer.files);
+    let file;
+    if (e.target.files) file = e.target.files[0];
+    else if (e.dataTransfer.files) file = e.dataTransfer.files[0];
     setPdf(file);
   };
 
@@ -39,11 +43,26 @@ export default function PDFParser({ setPdfData, pdfData, setError }) {
     }
   }, [pdf]);
 
+  const dragOverHandler = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+  const dragLeaveHandler = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
   return (
     <div className={`flex items-center justify-center w-full ${!pdf && "animate-pulse"}`}>
       <label
         htmlFor="dropzone-file"
-        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        onDrop={handlePDFChange}
+        onDragOver={dragOverHandler}
+        onDragLeave={dragLeaveHandler}
+        onDropCapture={dragLeaveHandler}
+        className={`flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer dark:hover:bg-bray-800 bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 ${
+          isDragOver ? "bg-gray-900" : ""
+        }`}
       >
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
           <svg
@@ -66,7 +85,7 @@ export default function PDFParser({ setPdfData, pdfData, setError }) {
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">Standard DnD Character sheet</p>
         </div>
-        <input onChange={handlePDFChange} id="dropzone-file" type="file" className="hidden" />
+        <input onChange={handlePDFChange} onDrop={handlePDFChange} id="dropzone-file" type="file" className="hidden" />
       </label>
     </div>
   );
