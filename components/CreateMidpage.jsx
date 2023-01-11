@@ -25,7 +25,7 @@ export default function CreateMidpage() {
       </div>
 
       {/* Intruction Cards 1 - Responsive by Tippi */}
-      <div className="flex justify-around flex-col mb-10 mr-12 ml-12 md:flex-row items-center">
+      <div className="flex justify-around flex-col mb-5 mr-12 ml-12 md:flex-row items-center">
         <div className="flex container flex-row sm:flex-col md:w-1/4 justify-center align-center items-center bg-[#110402] p-6 w-4/5 m-3">
           <p className="justify-center text-center">
             Upload Standard Character Sheet PDF
@@ -82,27 +82,25 @@ export default function CreateMidpage() {
       </div>
 
       {/* Instructional Cards 2 - @Development Interns */}
-      <div className="flex flex-row mt-8 mr-12 ml-12">
-        <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
-          <p>Mint an ERC721</p>
-          <p>CNFT Avatar</p>
+      <div className="flex justify-around flex-col mb-5 mt-5 mr-12 ml-12 md:flex-row items-center">
+        <div className="flex container flex-row sm:flex-col md:w-1/4 justify-center align-center items-center bg-[#110402] p-6 w-4/5 m-3">
+          <p className="justify-center text-center">Mint an ERC721 NFT Avatar</p>
           <Image
             src={nftIcon}
             alt="NFT icon"
             className="w-40 h-40 object-contain pt-5"
           />
         </div>
-        <div className="flex flex-col justify-center align-center items-center bg-[#110402] mr-7 p-6 w-1/3">
-          <p>Join the community</p>
+        <div className="flex container flex-row sm:flex-col md:w-1/4 justify-center align-center items-center bg-[#110402] p-6 w-4/5 m-3">
+          <p className="justify-center text-center">Join the community</p>
           <Image
             src={communityIcon}
             alt="community icon"
             className="w-40 h-40 object-contain pt-5"
           />
         </div>
-        <div className="flex flex-col justify-center align-center items-center bg-[#110402] p-6 w-1/3">
-          <p>Buy interactive</p>
-          <p>dice to get gold</p>
+        <div className="flex container flex-row sm:flex-col md:w-1/4 justify-center align-center items-center bg-[#110402] p-6 w-4/5 m-3">
+          <p className="justify-center text-center">Buy interactive dice to get gold</p>
           <Image
             src={diceIcon}
             alt="icon of a 20 sided dice"
