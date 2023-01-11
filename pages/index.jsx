@@ -6,10 +6,8 @@ import elfImage from "../public/elf-3600557344.png";
 import PDFParser from "../components/PDFParser";
 import CreateHero from "../components/CreateHero";
 import CreateMidpage from "../components/CreateMidpage";
-
 // import { createPrompt } from "../utils/promptGen";
 import { Create } from "../components/Create";
-
 export default function Home() {
   const [data, setData] = useState({
     race: "",

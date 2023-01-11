@@ -12,22 +12,41 @@ export default function CreateHero() {
     <div>
       {/* Navbar */}
       <Navbar />
-
+      <div className="pt-16 mt-10">
       {/* Hero Images */}
-      <Link href="#create">
-        <div className="flex mx-7 my-1.5">
-          <div className="mx-3 relative z-0">
-            <Image src={hero1} alt="samplepic1" className="w-full h-full" />
-          </div>
-          <div className="mr-3 relative z-0">
-            <Image src={hero2} alt="samplepic2" className="w-full h-full" />
-          </div>
-          <Trynow />
-          <div className="mr-3 relative z-0">
-            <Image src={hero3} alt="samplepic3" className="w-full h-full" />
+      <div className="flex justify-center">
+        <div className="mx-3 relative z-0">
+          <a href="#create">
+            <Image
+              src={hero1}
+              alt="samplepic1"
+              className="object-fit: cover w-full h-full"
+            />
+          </a>
+        </div>
+        <div className="mx-3 relative z-0">
+          <a href="#create">
+            <Image
+              src={hero2}
+              alt="samplepic2"
+              className="object-fit: cover w-full h-full"
+            />
+          </a>
+        </div>
+        <div className="mx-3 relative z-0">
+          <a href="#create">
+            <Image
+              src={hero3}
+              alt="samplepic3"
+              className="object-fit: cover w-full h-full"
+            />
+          </a>
           </div>
         </div>
-      </Link>
+        
+        <Trynow />
+      
+      </div>
     </div>
   );
 }
