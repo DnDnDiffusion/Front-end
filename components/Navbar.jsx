@@ -1,34 +1,48 @@
 import Image from "next/image";
 import Logo from "../public/images/CREATE-hero/logo.png";
-import React from "react";
+import React, { useState,useRef } from "react";
 
 export default function Navbar() {
+  const [navMenuVisible, setNavMenuVisible] = useState(false);
+    // Define the toggleNavMenu function
+    const toggleNavMenu = () => {
+      setNavMenuVisible(!navMenuVisible);
+    };
+
   return (
-    <nav className="flex justify-start justify-between items-center p-6 container mx-auto">
-      <Image src={Logo} alt="logo" className="shrink w-12 object-contain" />
-      {/* hamburger menu, has no functionality */}
-      <div id="hamburger" className="hover:cursor-pointer sm:hidden">
-        <span className="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></span>
-        <span className="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></span>
-        <span className="h-1 rounded-full block w-8 mb-1 bg-gradient-to-tr from-indigo-600 to-green-600"></span>
-      </div>
-      <ul className="sm:flex text-center hidden justify-between items-center p-9">
-        <li className="text-yellow-500 mr-5 hover:text-red-500 transition-all">
-          <a href="#create">CREATE</a>
-        </li>
-        <li className="mx-5 hover:text-yellow-500 transition-all">
-          <a href="#explore">EXPLORE</a>
-        </li>
-        <li className="mx-5 hover:text-yellow-500 transition-all">
-          <a href="#gmdice">GM.DICE</a>
-        </li>
-        <li className="mx-5 hover:text-yellow-500 transition-all">
-          <a href="#about">ABOUT</a>
-        </li>
-        <li className="ml-5 hover:text-yellow-500 transition-all">
-          <a href="#contact">CONTACT</a>
-        </li>
-      </ul>
-    </nav>
+    <nav className={`absolute top-0  w-full max-w-none bg-black px-4 sm:px-4 py-2.5 dark:bg-black-900 fixed w-full z-20 top-0 left-0 border-b-block border-black-200 dark:border-black-600`}>
+      <div className="container flex flex-wrap items-center justify-between mx-auto">
+        <a href="#home" className="flex items-center">
+          <Image className="logo" src={Logo} alt="logo" class="shrink w-20 object-contain" />
+        </a>
+        <div className="flex md:order-2" >
+          <button id="Connect-Wallet" type="button" className="text-black bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-red-600 hover:bg-[#F87171] hover:text-white dark:focus:ring-red-800">Connect Wallet</button>
+          <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false" onClick={toggleNavMenu}>
+            
+            <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"></path></svg>
+          </button>
+  </div>
+  <div className={`items-center justify-between w-full md:flex md:w-auto  md:order-1 ${navMenuVisible ? "block" : "hidden"}`} id="navbar-sticky" >
+    
+    <ul className="flex flex-col p-4 mt-4 border border-black-100 rounded-lg bg-black-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-black dark:bg-black-800 md:dark:bg-black-900 dark:border-black-700">
+      <li>
+        <a href="#" class="block py-2 pl-3 pr-4 text-white bg-red-700 rounded md:bg-transparent md:text-white-700 md:p-0 dark:text-white text-xl font-medium hover:text-yellow-500 transition-all" aria-current="page">CREATE</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 pl-3 pr-4 text-white-700 rounded md:p-0 dark:text-white-400 text-xl font-medium hover:text-yellow-500 transition-all">EXPLORE</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 pl-3 pr-4 text-white-700 rounded md:p-0 dark:text-white-400 text-xl font-medium hover:text-yellow-500 transition-all">GM DICE</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 pl-3 pr-4 text-white-700 rounded md:p-0 dark:text-white-400 text-xl font-medium hover:text-yellow-500 transition-all">ABOUT</a>
+      </li>
+      <li>
+        <a href="#" class="block py-2 pl-3 pr-4 text-white-700 rounded md:p-0 dark:text-white-400 text-xl font-medium hover:text-yellow-500 transition-all">CONTACT</a>
+      </li>
+    </ul>
+  </div>
+  </div>
+  </nav>
   );
-}
+  }

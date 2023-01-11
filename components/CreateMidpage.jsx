@@ -7,20 +7,21 @@ import choiceIcon from "../public/images/CREATE-midpage/icon3.png";
 import nftIcon from "../public/images/CREATE-midpage/icon4.png";
 import communityIcon from "../public/images/CREATE-midpage/icon5.png";
 import diceIcon from "../public/images/CREATE-midpage/icon6.png";
-
 export default function CreateMidpage() {
   return (
+    
     <div className="m-1 p-1">
       {/* Content in the center */}
-      <div className="flex md:flex-nowrap flex-wrap bg-[#110402] h-full flex-col m-12 p-8">
-        <h1 className="pb-2 text-xl underline">Operation Dragonborn</h1>
-        <h3>
+      <div className="flex md:flex-nowrap flex-wrap bg-[#0F1E31] h-full flex-col m-12 p-8 shadow-lg mt-5">
+        <h1 className="pb-2 text-xl underline font-medium">Operation Dragonborn</h1>
+        <h3 className="font-medium">
           Welcome to our free AI fantasy concept art generator. We are a
           worldwide party of role-players who came together to make an app that
           would make the process of playing a fantasy RPG together easier and
           more visually engaging. Make your Tabletop RPG character sheet into an
           incredible, original work of art in just a few steps. Try it out!
         </h3>
+        
       </div>
 
       {/* Intruction Cards 1 - Responsive by Tippi */}

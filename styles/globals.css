@@ -60,3 +60,29 @@ h1 {
   margin: 0 auto;
   text-align: center;
 }
+
+ 
+  .hidden {
+    display: none;
+  }
+ 
+  h3 {
+    text-align: center;
+    white-space: break-word;
+  }
+  button {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .logo {
+    
+    height: 3em;
+    width: 3em;
+  }
+  #trynow {
+    width: 300px;
+  }
+ 
+
