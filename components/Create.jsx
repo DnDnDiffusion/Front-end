@@ -37,7 +37,9 @@ export const Create = () => {
     //create standard metadata object
     //add cid to metadata object
     //upload metadata to ipfs
+    const cid = uploadDataToIPFS(xx) //example from web3utils.js
     //mint nft
+    const tx = await mintNFT(cid)
     //check for error
     //isminting = false
   }
