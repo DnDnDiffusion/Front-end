@@ -10,29 +10,30 @@
 
 # Blockchain, Chainlink & IPFS
 
-- Our database of dragonborn heroes is maintained as NFTs in our smart contract, with a nice royalty for our treasury in there.  - [@Cromewar put a](https://danj-o.notion.site/Just-regular-NFTs-7e555cc179684be58edf002b0f5b645d) sentence or two and a link here. -
+- Our database of dragonborn heroes is maintained as NFTs in our smart contract, with a nice royalty for our treasury in there. - [@Cromewar put a](https://danj-o.notion.site/Just-regular-NFTs-7e555cc179684be58edf002b0f5b645d) sentence or two and a link here. -
 
-- In the past, we used Chainlink in our Smart Contract to provide VRF randomness. [Link](https://goerli.etherscan.io/address/0xa41a00db6c90b969252b38580e36b5241c16de85) In the future we want to expand this random seed into unique image prompts, gameplay missions and DM/GM approved mission complete access control.  [See Our Github Repo for mo'](https://github.com/DnDnDiffusion/scaffold-dnd)
+- In the past, we used Chainlink in our Smart Contract to provide VRF randomness. [Link](https://goerli.etherscan.io/address/0xa41a00db6c90b969252b38580e36b5241c16de85) In the future we want to expand this random seed into unique image prompts, gameplay missions and DM/GM approved mission complete access control. [See Our Github Repo for mo'](https://github.com/DnDnDiffusion/scaffold-dnd)
 
 - We used IPFS/NFT.Storage to provide decentralized, permanent and immutable storage for the image saved to NFT. [link to code in front end, line 42](https://github.com/DnDnDiffusion/Front-end/blob/0d8ea121eb9e9f05550a99e6ae4e6887642e5e1b/pages/index.jsx#L42) and more code at [util for NFT Storage](https://github.com/DnDnDiffusion/Front-end/blob/main/utils/web3utils.js).
 
 # Getting Started (for developers)
 
-0. Tweet @fifestarr "We're just getting started! ..." and/or try out our [live demo](https://operation-dragonborn.vercel.app/) and leave us your UX feedback here as an issue.  
+0. Tweet @fifestarr "We're just getting started! ..." and/or try out our [live demo](https://operation-dragonborn.vercel.app/) and leave us your [UX feedback here on Github](https://github.com/DnDnDiffusion/Front-end/issues) as an issue.
 
 > follow these steps to run our front-end on your local machine.
+
 1. Git clone this front-end `git clone git@github.com:DnDnDiffusion/Front-end.git`
 1. If you want to contribute quickly, switch to the welcome branch and add your name to the guest list. Commit with your preferred "class name" `git commit -m "star druid"`, and then push the changes to welcome branch.
 1. run `npm install` in the Front-end directory
-> see Front-end setup below
+   > see Front-end setup below
 1. Open your browser to `http://localhost:3000/` and enjoy!
 1. Check that the back-end API is functioning by uploading the fastcharacter.com sheet pdf and generating an image.
-![image](https://user-images.githubusercontent.com/62179036/209493360-d79c07f5-70cb-4f5d-ab3b-f312557ada2c.png)
-> replace this with a screenshot that's configured with our trained model.
+   ![image](https://user-images.githubusercontent.com/62179036/209493360-d79c07f5-70cb-4f5d-ab3b-f312557ada2c.png)
+   > replace this with a screenshot that's configured with our trained model.
 
 ## Front-end setup
 
-> `npm install` or `yarn` from the front-end directory
+> `npm install` or `yarn` from the front-end directory to install dependencies
 
 First, run the development server from the front-end directory:
 
@@ -50,43 +51,50 @@ You can start editing the page by modifying `pages/index.jsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+Use the `utils/` folder to add general functions (such as generating prompts, or saving files to NFT.Storage)
+
 # What should I build to improve the UI/UX?
 
-- Ideally, we have a frontend that:
+Ideally, we have a frontend that:
 
-  [] Has a "download namedDragonborn.png" button so users that don't know about right clicking or screenshotting can easily get their picture onto their device.
+- [ ] Has a "download namedDragonborn.png" button so users that don't know about right clicking or screenshotting can easily get their picture onto their device.
 
-  [x] Has a "Save as NFT" for permanant decentralized file storage
+- [x] Has a "Save as NFT" for permanant decentralized file storage
 
-  [] Has a "Connect Wallet" button to enable Save as NFT.
+- [ ] Has a "Connect Wallet" button to enable Save as NFT.
 
-  [x] Displays form to send to backend for image processing ie. /getImage
+- [x] Displays form to send to backend for image processing ie. /getImage
 
-  [x] Scrapes a PDF / sends a pdf to the back-end
+- [x] Scrapes a PDF / sends a pdf to the back-end
 
-  [] Displays response of images (choices) for the users character avatar
+- [x] Displays response of images (choices) for the users character avatar
 
-  [] Serverside API call to backend / back-up to nft.storage ??
+- [ ] Serverside API call to backend / back-up to nft.storage ??
 
-  [] After character selection, send and save chosen character with character sheet
+- [ ] After character selection, send and save chosen character with character sheet
+
+- [ ] Fully responsive hamburger menu and mobile-friendly
+- [ ] Image selection UX highlighting and features
 
 ## endpoint documentation
 
-[x] stuff about the endpoint
+- [x] stuff about the endpoint
 
-Our backend endpoint information is somewhat centralized in the mind and cloud of Somya the Dragonborn Cleric. Here is a [link to our R&D page on Notion](https://www.notion.so/danj-o/R-D-6575f7b14c5949c0b65215c052c21b17).  Happy adventuring!
+Our backend endpoint information is somewhat centralized in the mind and cloud of Somya the Dragonborn Cleric. Here is a [link to our R&D page on Notion](https://www.notion.so/danj-o/R-D-6575f7b14c5949c0b65215c052c21b17). Happy adventuring!
 
-[] Somya & Tippi's advice about Front-end to back-end connection
+- [ ] Somya & Tippi's advice about Front-end to back-end connection
 
 -- @Somya, how can I fix these issues while you're sleeping? Can you provide some step-by-step instructions or meet with me in around.co to teach me? -- Tippi
 
 ### Roadmaps
 
-[] using next/Image everywhere instead of img, using at least one cool Image feature
+- [x] using next/Image everywhere instead of img
 
-[x] [poetic product roadmaps](https://danj-o.notion.site/Product-Roadmap-S-1-3-bd2480b5be144ba4bef2b8b26ba336fe) by Tippi
+  - [ ] using at least one cool next/Image feature
 
-[] collect emails and save to db
+- [x] [poetic product roadmaps](https://danj-o.notion.site/Product-Roadmap-S-1-3-bd2480b5be144ba4bef2b8b26ba336fe) by Tippi
+
+- [ ] collect emails and save to db
 
 > make sure it sends to api like the other fields
 > then, save the email to the db
