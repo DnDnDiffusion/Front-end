@@ -9,7 +9,7 @@ const WalletConnectButton = () => {
   const { open, isOpen, close } = useWeb3Modal()
   const { disconnect } = useDisconnect()
   // const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
-  //   message: "Sign to connect this wallet to your COE account",
+  //   message: "",
   // })
 
   const handleConnect = (e) => {
@@ -30,25 +30,6 @@ const WalletConnectButton = () => {
     }
   }, [isConnected])
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setSignature(data)
-  //   }
-  // }, [data])
-
-  // if (isConnected && !signature)
-  //   return (
-  //     <button className="w-fit bg-yellow-500 text-black rounded-lg p-4" onClick={() => signMessage()}>
-  //       Sign Message
-  //     </button>
-  //   )
-  // if (isConnected)
-  //   return (
-  //     <button className="w-fit bg-red-500 text-black rounded-lg p-4" onClick={handleDisconnect}>
-  //       Wallet Disconnect
-  //     </button>
-  //   )
-  // else
   return (
     <div>
       {isConnected ? (
