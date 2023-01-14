@@ -4,8 +4,7 @@ const token = process.env.NEXT_PUBLIC_NFT_STORAGE;
 
 // takes in base64 binary image data
 async function avatarNFTSTORAGE(someBinaryImageData) {
-  debugger;
-  console.log(someBinaryImageData);
+  console.log("binary image data correctly passed in ", someBinaryImageData);
   const client = new NFTStorage({ token: token });
 
   console.log(client);

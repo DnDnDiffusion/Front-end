@@ -57,7 +57,7 @@ Ideally, we have a frontend that:
 
 - [ ] Has a "download namedDragonborn.png" button so users that don't know about right clicking or screenshotting can easily get their picture onto their device.
 
-- [x] Has a "Save as NFT" for permanant decentralized file storage
+- [ ] Has a "Save as NFT" for permanant decentralized file storage
 
 - [x] Has a "Connect Wallet" button to enable Save as NFT.
 
