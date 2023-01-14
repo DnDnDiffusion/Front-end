@@ -1,14 +1,14 @@
-import Image from "next/image"
-import Logo from "../public/images/CREATE-hero/logo.png"
-import React, { useState, useRef } from "react"
-import WalletConnectButton from "./WalletConnectButton"
+import Image from "next/image";
+import Logo from "../public/images/CREATE-hero/logo.png";
+import React, { useState, useRef } from "react";
+import WalletConnectButton from "./WalletConnectButton";
 
 export default function Navbar() {
-  const [navMenuVisible, setNavMenuVisible] = useState(false)
+  const [navMenuVisible, setNavMenuVisible] = useState(false);
   // Define the toggleNavMenu function
   const toggleNavMenu = () => {
-    setNavMenuVisible(!navMenuVisible)
-  }
+    setNavMenuVisible(!navMenuVisible);
+  };
 
   return (
     <nav
@@ -16,16 +16,14 @@ export default function Navbar() {
     >
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <a href="#home" className="flex items-center">
-          <Image src={Logo} alt="logo" className="logo shrink w-20 object-contain" />
+          <Image
+            src={Logo}
+            alt="logo"
+            className="logo shrink w-20 object-contain"
+          />
         </a>
         <div className="flex md:order-2">
-          <button
-            id="Connect-Wallet"
-            type="button"
-            className="text-black bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-red-600 hover:bg-[#F87171] hover:text-white dark:focus:ring-red-800"
-          >
-            Connect Wallet
-          </button>
+          <WalletConnectButton id="connect-wallet" type="button" />
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
@@ -98,9 +96,8 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
-          <WalletConnectButton />
         </div>
       </div>
     </nav>
-  )
+  );
 }
