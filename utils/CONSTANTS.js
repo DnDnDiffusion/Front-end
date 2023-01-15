@@ -1,5 +1,7 @@
 export const CONSTANTS = {
   contractAddress: "0x4379044faCb5f0879de15E70b45AFD495a197674",
+  gptPrefixDescription:
+    "Parse this javascript object into a description. The object is a character in Dungeons and Dragons. The description should be several long paragraphs and detailed. Do not use the values in the object directly like saying 'her strength is +2', instead use them to generate a description and expand on each. Focus on physical descriptions and attributes of the character. Explain the feature value with a story: ",
   contractABI: [
     { inputs: [], stateMutability: "nonpayable", type: "constructor" },
     {
