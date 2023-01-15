@@ -3,7 +3,7 @@ import { NFTStorage, File } from "nft.storage";
 const token = process.env.NEXT_PUBLIC_NFT_STORAGE;
 
 // takes in base64 binary image data
-async function avatarNFTSTORAGE(someBinaryImageData) {
+async function imageNFTSTORAGE(someBinaryImageData) {
   console.log("binary image data correctly passed in ", someBinaryImageData);
   const client = new NFTStorage({ token: token });
 
@@ -20,7 +20,23 @@ async function avatarNFTSTORAGE(someBinaryImageData) {
   //   description: "Just try to funge it. You can't do it.",
   //   image: imageFile,
   // });
+  console.log("cid: ", cid, " ... now creating metadata");
+  // const metadata = await client.store({
   return cid;
 }
 
-module.exports = { avatarNFTSTORAGE };
+//function takes structuredMetadata and returns a ipfs uri
+async function metadataNFTSTORAGE(structuredMetadata) {
+  console.log("structuredMetadata correctly passed in ", structuredMetadata);
+  const client = new NFTStorage({ token: token });
+
+  const metadata = await client.store({
+    // use destructuring to complete the metadata
+    ...structuredMetadata,
+  });
+  const clickableMetadata = `ipfs://${metadata}`;
+  console.log("metadata: ", clickableMetadata);
+  return clickableMetadata;
+}
+
+module.exports = { imageNFTSTORAGE, metadataNFTSTORAGE };

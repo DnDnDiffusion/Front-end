@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { useEffect, useState } from "react";
 import { createPrompt } from "../utils/promptGen";
-import { avatarNFTSTORAGE } from "../utils/web3utils";
+import { imageNFTSTORAGE, metadataNFTSTORAGE } from "../utils/web3utils";
 import { CharacterBackstory } from "./CharacterBackstory";
 import { CreateImageGrid } from "./CreateImageGrid";
 import PDFParser from "./PDFParser";
@@ -37,15 +37,77 @@ export const Create = () => {
     // connect to utils/web3utils.js and use the thing
     // pass the selected image  selectedImage to function
 
-    const tx = await avatarNFTSTORAGE(selectedImage);
+    const tx = await imageNFTSTORAGE(selectedImage);
     console.log("tx: ", tx);
 
     setIsMinting(false);
-
-    // upload image to ipfs
     //create standard metadata object
-    //add cid to metadata object
+    const structuredMetadata = {
+      name: "Wizard NFT!",
+      description:
+        "This is a wizard NFT, created during 'Operation Dragonborn' by our fearless heroes and the Scope Creeper! Just try to funge it. You can't do it.",
+      image: `ipfs://${tx}`,
+      external_url: "https://operation-dragonborn.vercel.app/",
+      attributes: [
+        {
+          trait_type: "Class",
+          value: "Wizard",
+        },
+        {
+          trait_type: "Race",
+          value: "Dragonborn!",
+        },
+        {
+          trait_type: "Prompt",
+          value: prompt,
+        },
+        {
+          trait_type: "Level",
+          value: 1,
+          max_value: 20,
+        },
+        {
+          trait_type: "Strength",
+          value: pdfData.str[1],
+        },
+        {
+          trait_type: "Dexterity",
+          value: pdfData.dex[1],
+        },
+        {
+          trait_type: "Constitution",
+          value: pdfData.con[1],
+        },
+        {
+          trait_type: "Intelligence",
+          value: pdfData.int[1],
+        },
+        {
+          trait_type: "Wisdom",
+          value: pdfData.wis[1],
+        },
+        {
+          trait_type: "Charisma",
+          value: pdfData.cha[1],
+        },
+        {
+          value: pdfData.playerName ? pdfData.playerName : pdfData.name,
+        },
+        {
+          trait_type: "Background",
+          value: pdfData.background,
+        },
+      ],
+    };
+    console.log(
+      "structuredMetadata constructed successfully:  ",
+      structuredMetadata
+    );
+
     //upload metadata to ipfs
+    const tokenuri = await metadataNFTSTORAGE(structuredMetadata);
+    console.log("tokenuri: ", tokenuri);
+
     // const cid = uploadDataToIPFS(xx) //example from web3utils.js
     //mint nft
     // const tx = await mintNFT(cid)
