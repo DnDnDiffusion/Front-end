@@ -1,42 +1,77 @@
-import { NFTStorage, File } from "nft.storage";
+import { NFTStorage, File } from "nft.storage"
 
-const token = process.env.NEXT_PUBLIC_NFT_STORAGE;
+const token = process.env.NEXT_PUBLIC_NFT_STORAGE
 
 // takes in base64 binary image data
-async function imageNFTSTORAGE(someBinaryImageData) {
-  console.log("binary image data correctly passed in ", someBinaryImageData);
-  const client = new NFTStorage({ token: token });
-
-  console.log(client);
-  const someData = new Blob([someBinaryImageData]);
-  // const imageFile = new File([someBinaryImageData], "nft.png", {
-  //   type: "image/png",
-  // });
-  // const cid = await client.storeDirectory([imageFile]);
-  // console.log(imageFile, cid);
-  const cid = await client.storeBlob(someData);
-  // const metadata = await client.store({
-  //   name: "D&D Diffusion Avatar",
-  //   description: "Just try to funge it. You can't do it.",
-  //   image: imageFile,
-  // });
-  console.log("cid: ", cid, " ... now creating metadata");
-  // const metadata = await client.store({
-  return cid;
+async function avatarNFTSTORAGE(someBinaryImageData, prompt, pdfData) {
+  const client = new NFTStorage({ token: token })
+  const uploadObject = createStructuredMetadata(pdfData, prompt, someBinaryImageData)
+  const metadata = await client.store(uploadObject)
+  return metadata.url
 }
 
-//function takes structuredMetadata and returns a ipfs uri
-async function metadataNFTSTORAGE(structuredMetadata) {
-  console.log("structuredMetadata correctly passed in ", structuredMetadata);
-  const client = new NFTStorage({ token: token });
+function createStructuredMetadata(pdfData, prompt, someBinaryImageData) {
+  const structuredMetadata = {
+    name: "Wizard NFT!",
+    description:
+      "This is a wizard NFT, created during 'Operation Dragonborn' by our fearless heroes and the Scope Creeper! Just try to funge it. You can't do it.",
+    image: new File([someBinaryImageData], "diffused.png", {
+      type: "image/png",
+    }),
+    external_url: "https://operation-dragonborn.vercel.app/",
+    attributes: [
+      {
+        trait_type: "Class",
+        value: "Wizard",
+      },
+      {
+        trait_type: "Race",
+        value: "Dragonborn!",
+      },
+      {
+        trait_type: "Prompt",
+        value: prompt,
+      },
+      {
+        trait_type: "Level",
+        value: 1,
+        max_value: 20,
+      },
+      {
+        trait_type: "Strength",
+        value: pdfData.str[1],
+      },
+      {
+        trait_type: "Dexterity",
+        value: pdfData.dex[1],
+      },
+      {
+        trait_type: "Constitution",
+        value: pdfData.con[1],
+      },
+      {
+        trait_type: "Intelligence",
+        value: pdfData.int[1],
+      },
+      {
+        trait_type: "Wisdom",
+        value: pdfData.wis[1],
+      },
+      {
+        trait_type: "Charisma",
+        value: pdfData.cha[1],
+      },
+      {
+        value: pdfData.playerName ? pdfData.playerName : pdfData.name,
+      },
+      {
+        trait_type: "Background",
+        value: pdfData.background,
+      },
+    ],
+  }
 
-  const metadata = await client.store({
-    // use destructuring to complete the metadata
-    ...structuredMetadata,
-  });
-  const clickableMetadata = `ipfs://${metadata}`;
-  console.log("metadata: ", clickableMetadata);
-  return clickableMetadata;
+  return structuredMetadata
 }
 
-module.exports = { imageNFTSTORAGE, metadataNFTSTORAGE };
+module.exports = { avatarNFTSTORAGE }

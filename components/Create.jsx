@@ -1,148 +1,83 @@
-import Image from "next/image";
-import React from "react";
-import { useEffect, useState } from "react";
-import { createPrompt } from "../utils/promptGen";
-import { imageNFTSTORAGE, metadataNFTSTORAGE } from "../utils/web3utils";
-import { CharacterBackstory } from "./CharacterBackstory";
-import { CreateImageGrid } from "./CreateImageGrid";
-import PDFParser from "./PDFParser";
-import Placeholder from "../public/images/CREATE/placeholder.png";
-import HelpToggle from "./HelpToggle";
+import Image from "next/image"
+import React from "react"
+import { useEffect, useState } from "react"
+import { createPrompt } from "../utils/promptGen"
+import { avatarNFTSTORAGE } from "../utils/web3utils"
+import { CharacterBackstory } from "./CharacterBackstory"
+import { CreateImageGrid } from "./CreateImageGrid"
+import PDFParser from "./PDFParser"
+import Placeholder from "../public/images/CREATE/placeholder.png"
+import HelpToggle from "./HelpToggle"
+import { CONSTANTS } from "../utils/CONSTANTS"
 
 export const Create = () => {
-  const [pdfData, setPdfData] = useState(null); //url
-  const [prompt, setPrompt] = useState(null); //url
-  const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
-  const [error, setError] = useState(null); //error msg
-  const [imageResult, setImageResult] = useState(null); //url
-  const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
-  const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
+  const [pdfData, setPdfData] = useState(null) //url
+  const [prompt, setPrompt] = useState(null) //url
+  const [imageProcessing, setImageProcessing] = useState(false) //processing state ie. loading...
+  const [error, setError] = useState(null) //error msg
+  const [imageResult, setImageResult] = useState(null) //url
+  const [selectedImage, setSelectedImage] = useState(null) //image chosen by user
+  const [isMinting, setIsMinting] = useState(false) //minting nft state ie. loading...
 
   //states: no data, pdf uploaded, images generated, nft minted
 
   useEffect(() => {
     if (pdfData) {
-      console.log("pdfData: ", pdfData);
+      console.log("pdfData: ", pdfData)
       //create text prompt using pdfData and other data
-      const prompt = createPrompt(pdfData);
-      console.log("prompt: ", prompt);
-      setPrompt(prompt);
-      setError(null);
+      const prompt = createPrompt(pdfData)
+      console.log("prompt: ", prompt)
+      setPrompt(prompt)
+      setError(null)
     }
-  }, [pdfData]);
+  }, [pdfData])
 
   const mintAvatar = async () => {
-    setIsMinting(true);
-    console.log("Minting avatar... with ", selectedImage);
-    // connect to utils/web3utils.js and use the thing
-    // pass the selected image  selectedImage to function
+    setIsMinting(true)
+    console.log("Minting avatar... with ", selectedImage)
 
-    const tx = await imageNFTSTORAGE(selectedImage);
-    console.log("tx: ", tx);
+    const metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json (we might want to pass a traits object into this at some point)
+    console.log("metadata url: ", metadataUrl)
 
-    setIsMinting(false);
-    //create standard metadata object
-    const structuredMetadata = {
-      name: "Wizard NFT!",
-      description:
-        "This is a wizard NFT, created during 'Operation Dragonborn' by our fearless heroes and the Scope Creeper! Just try to funge it. You can't do it.",
-      image: `ipfs://${tx}`,
-      external_url: "https://operation-dragonborn.vercel.app/",
-      attributes: [
-        {
-          trait_type: "Class",
-          value: "Wizard",
-        },
-        {
-          trait_type: "Race",
-          value: "Dragonborn!",
-        },
-        {
-          trait_type: "Prompt",
-          value: prompt,
-        },
-        {
-          trait_type: "Level",
-          value: 1,
-          max_value: 20,
-        },
-        {
-          trait_type: "Strength",
-          value: pdfData.str[1],
-        },
-        {
-          trait_type: "Dexterity",
-          value: pdfData.dex[1],
-        },
-        {
-          trait_type: "Constitution",
-          value: pdfData.con[1],
-        },
-        {
-          trait_type: "Intelligence",
-          value: pdfData.int[1],
-        },
-        {
-          trait_type: "Wisdom",
-          value: pdfData.wis[1],
-        },
-        {
-          trait_type: "Charisma",
-          value: pdfData.cha[1],
-        },
-        {
-          value: pdfData.playerName ? pdfData.playerName : pdfData.name,
-        },
-        {
-          trait_type: "Background",
-          value: pdfData.background,
-        },
-      ],
-    };
-    console.log(
-      "structuredMetadata constructed successfully:  ",
-      structuredMetadata
-    );
+    setIsMinting(false)
 
-    //upload metadata to ipfs
-    const tokenuri = await metadataNFTSTORAGE(structuredMetadata);
-    console.log("tokenuri: ", tokenuri);
-
-    // const cid = uploadDataToIPFS(xx) //example from web3utils.js
     //mint nft
     // const tx = await mintNFT(cid)
     //check for error
     //isminting = false
-  };
+  }
 
   const generateImages = async () => {
-    console.log("Generating images... for ", prompt);
-    setError(false);
-    setImageProcessing(true);
-    const fetchResult = await fetch("/api/getImage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        data: prompt,
-      }),
-    }); //result is given as base64 encoded images
-    const result = await fetchResult.json();
-    console.log("result: ", result);
+    console.log("Generating images... for ", prompt)
+    setError(false)
+    setImageProcessing(true)
+    // const fetchResult = await fetch("/api/getImage", { // <------------- COMMENTED OUT FOR TESTING
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     data: prompt,
+    //   }),
+    // }) //result is given as base64 encoded images
+    // const result = await fetchResult.json()
 
-    setImageProcessing(false);
+    const result = { images: [CONSTANTS.testBase64Image] } // <------------- THIS IS FOR TESTING
+
+    console.log("result: ", result)
+
+    setImageProcessing(false)
     if (result.error) {
-      return setError(result.error);
+      return setError(result.error)
     }
-    setImageResult(result);
-  };
+    setImageResult(result)
+  }
 
   const handleGenderSelect = (e) => {
-    console.log(e.target.value);
-    setPdfData({ ...pdfData, gender: e.target.value });
-  };
+    console.log(e.target.value)
+    setPdfData({ ...pdfData, gender: e.target.value })
+  }
 
   return (
     <div>
@@ -155,11 +90,7 @@ export const Create = () => {
             </h2>
             <HelpToggle />
           </div>
-          <PDFParser
-            setPdfData={setPdfData}
-            pdfData={pdfData}
-            setError={setError}
-          />
+          <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
           {pdfData && (
             <div>
               <select onChange={handleGenderSelect} name="" id="">
@@ -190,20 +121,13 @@ export const Create = () => {
             <div className="">
               <h2 className="text-2xl">Result Images</h2>
               <p>
-                Press <span className=" italic">upload</span> to begin
-                generating your avatar.
+                Press <span className=" italic">upload</span> to begin generating your avatar.
               </p>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="flex flex-col justify-center items-center">
-                <Image
-                  className="w-1/2"
-                  src={selectedImage || Placeholder}
-                  alt=""
-                  width={128}
-                  height={128}
-                />
+                <Image className="w-1/2" src={selectedImage || Placeholder} alt="" width={128} height={128} />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
@@ -254,5 +178,5 @@ export const Create = () => {
         <CharacterBackstory pdfData={pdfData} />
       </div>
     </div>
-  );
-};
+  )
+}
