@@ -10,6 +10,8 @@ import Placeholder from "../public/images/CREATE/placeholder.png"
 import HelpToggle from "./HelpToggle"
 import { CONSTANTS } from "../utils/CONSTANTS"
 
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
+
 export const Create = () => {
   const [pdfData, setPdfData] = useState(null) //url
   const [prompt, setPrompt] = useState(null) //url
@@ -18,6 +20,16 @@ export const Create = () => {
   const [imageResult, setImageResult] = useState(null) //url
   const [selectedImage, setSelectedImage] = useState(null) //image chosen by user
   const [isMinting, setIsMinting] = useState(false) //minting nft state ie. loading...
+  const [metadataUrl, setMetadataUrl] = useState(null) //url
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: CONSTANTS.contractAddress,
+    abi: CONSTANTS.contractABI,
+    functionName: "mint",
+    // args: [],
+    chainId: 5,
+  })
 
   //states: no data, pdf uploaded, images generated, nft minted
 
@@ -34,17 +46,19 @@ export const Create = () => {
 
   const mintAvatar = async () => {
     setIsMinting(true)
-    console.log("Minting avatar... with ", selectedImage)
+    console.log("Minting avatar...")
 
-    const metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json
-    console.log("metadata url: ", metadataUrl)
-
-    setIsMinting(false)
+    const _metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json
+    console.log("metadata url: ", _metadataUrl)
+    setMetadataUrl(_metadataUrl)
 
     //mint nft
-    // const tx = await mintNFT(cid)
+    const mintResult = write({
+      recklesslySetUnpreparedArgs: [_metadataUrl],
+    })
+    console.log("mintResult: ", mintResult)
     //check for error
-    //isminting = false
+    setIsMinting(false)
   }
 
   const generateImages = async () => {
@@ -65,7 +79,7 @@ export const Create = () => {
 
     const result = { images: [CONSTANTS.testBase64Image] } // <------------- THIS IS FOR TESTING
 
-    console.log("result: ", result)
+    // console.log("result: ", result)
 
     setImageProcessing(false)
     if (result.error) {
@@ -75,7 +89,6 @@ export const Create = () => {
   }
 
   const handleGenderSelect = (e) => {
-    console.log(e.target.value)
     setPdfData({ ...pdfData, gender: e.target.value })
   }
 
