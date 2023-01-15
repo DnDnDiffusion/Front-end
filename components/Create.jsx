@@ -36,7 +36,7 @@ export const Create = () => {
     setIsMinting(true)
     console.log("Minting avatar... with ", selectedImage)
 
-    const metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json (we might want to pass a traits object into this at some point)
+    const metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json
     console.log("metadata url: ", metadataUrl)
 
     setIsMinting(false)
