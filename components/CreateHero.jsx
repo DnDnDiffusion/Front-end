@@ -16,19 +16,19 @@ export default function CreateHero() {
         {/* Hero Images */}
         <div className="flex justify-center">
           <div className="mx-3 relative z-0">
-            <a href="#create">
-              <Image src={hero1} alt="samplepic1" className="object-fit: cover w-full h-full" />
-            </a>
+            {/* <a href="#create"> */}
+            <Image src={hero1} alt="samplepic1" className="object-fit: cover w-full h-full" />
+            {/* </a> */}
           </div>
           <div className="mx-3 relative z-0">
-            <a href="#create">
-              <Image src={hero2} alt="samplepic2" className="object-fit: cover w-full h-full" />
-            </a>
+            {/* <a href="#create"> */}
+            <Image src={hero2} alt="samplepic2" className="object-fit: cover w-full h-full" />
+            {/* </a> */}
           </div>
           <div className="mx-3 relative z-0">
-            <a href="#create">
-              <Image src={hero3} alt="samplepic3" className="object-fit: cover w-full h-full" />
-            </a>
+            {/* <a href="#create"> */}
+            <Image src={hero3} alt="samplepic3" className="object-fit: cover w-full h-full" />
+            {/* </a> */}
           </div>
         </div>
 

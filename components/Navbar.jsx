@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`w-full max-w-none bg-black px-4 sm:px-4 py-2.5 dark:bg-black-900 w-full z-20 top-0 left-0 border-b-block border-black-200 dark:border-black-600`}
+      className={`w-full max-w-none bg-black px-4 sm:px-4 py-2.5 dark:bg-black-900 z-20 top-0 left-0 border-b-block border-black-200 dark:border-black-600`}
     >
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <Link href="/" className="flex items-center">
