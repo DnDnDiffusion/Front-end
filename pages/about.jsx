@@ -33,7 +33,7 @@ export default function About() {
   return (
     <div>
       <h1>About</h1>
-      <p>{data}</p>
+      <p>{data ? data : "Loading a definitely true story..."}</p>
     </div>
   )
 }

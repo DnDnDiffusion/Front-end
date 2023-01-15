@@ -1,27 +1,24 @@
-import Image from "next/image";
-import Logo from "../public/images/CREATE-hero/logo.png";
-import React, { useState, useRef } from "react";
-import WalletConnectButton from "./WalletConnectButton";
+import Image from "next/image"
+import Logo from "../public/images/CREATE-hero/logo.png"
+import React, { useState, useRef } from "react"
+import WalletConnectButton from "./WalletConnectButton"
+import Link from "next/link"
 
 export default function Navbar() {
-  const [navMenuVisible, setNavMenuVisible] = useState(false);
+  const [navMenuVisible, setNavMenuVisible] = useState(false)
   // Define the toggleNavMenu function
   const toggleNavMenu = () => {
-    setNavMenuVisible(!navMenuVisible);
-  };
+    setNavMenuVisible(!navMenuVisible)
+  }
 
   return (
     <nav
-      className={`absolute top-0  w-full max-w-none bg-black px-4 sm:px-4 py-2.5 dark:bg-black-900 fixed w-full z-20 top-0 left-0 border-b-block border-black-200 dark:border-black-600`}
+      className={`w-full max-w-none bg-black px-4 sm:px-4 py-2.5 dark:bg-black-900 w-full z-20 top-0 left-0 border-b-block border-black-200 dark:border-black-600`}
     >
       <div className="container flex flex-wrap items-center justify-between mx-auto">
-        <a href="#home" className="flex items-center">
-          <Image
-            src={Logo}
-            alt="logo"
-            className="logo shrink w-20 object-contain"
-          />
-        </a>
+        <Link href="/" className="flex items-center">
+          <Image src={Logo} alt="logo" className="logo shrink w-20 object-contain" />
+        </Link>
         <div className="flex md:order-2">
           <WalletConnectButton id="connect-wallet" type="button" />
           <button
@@ -80,12 +77,12 @@ export default function Navbar() {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                href="/about"
                 className="block py-2 pl-3 pr-4 text-white-700 rounded md:p-0 dark:text-white-400 text-xl font-medium hover:text-yellow-500 transition-all"
               >
                 ABOUT
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -99,5 +96,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }

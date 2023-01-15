@@ -4,6 +4,7 @@ import { Web3Modal } from "@web3modal/react"
 
 import { configureChains, createClient, WagmiConfig } from "wagmi"
 import { goerli } from "wagmi/chains"
+import Layout from "../components/Layout"
 
 const chains = [goerli]
 // const chains = [arbitrum, mainnet, polygon, goerli];
@@ -30,7 +31,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <WagmiConfig client={wagmiClient}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </WagmiConfig>
 
       <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
