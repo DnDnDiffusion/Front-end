@@ -24,6 +24,7 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
@@ -61,28 +62,35 @@ h1 {
   text-align: center;
 }
 
- 
-  .hidden {
-    display: none;
-  }
- 
-  h3 {
-    text-align: center;
-    white-space: break-word;
-  }
-  button {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-  }
 
-  .logo {
-    
-    height: 3em;
-    width: 3em;
-  }
-  #trynow {
-    width: 300px;
-  }
- 
+.hidden {
+  display: none;
+}
 
+h3 {
+  text-align: center;
+  white-space: break-word;
+}
+
+button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.logo {
+
+  height: 3em;
+  width: 3em;
+}
+
+#trynow {
+  width: 300px;
+}
+
+.save-button {
+  background-image: url('../public/images/SaveButton/Background.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
