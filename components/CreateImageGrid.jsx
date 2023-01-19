@@ -3,6 +3,7 @@ import React from "react"
 import { useEffect } from "react"
 import { LoadingTips } from "./LoadingTips"
 import Placeholder from "../public/images/CREATE/placeholder.png"
+import SaveButton from "./SaveButton"
 
 export const CreateImageGrid = ({ imageProcessing, imageResult, error, pdfData, setSelectedImage }) => {
   useEffect(() => {
@@ -52,6 +53,7 @@ export const CreateImageGrid = ({ imageProcessing, imageResult, error, pdfData, 
             />
           )
         })}
+        <SaveButton imageResult={imageResult} />
       </div>
     )
   else if (pdfData) {
