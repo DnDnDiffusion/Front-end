@@ -10,6 +10,7 @@ import Placeholder from "../public/images/CREATE/placeholder.png";
 import HelpToggle from "./HelpToggle";
 import { CONSTANTS } from "../utils/CONSTANTS";
 import SaveButton from "./SaveButton";
+import CharacterStats from "./CharacterStats"
 
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -96,6 +97,11 @@ export const Create = () => {
 
   return (
     <div>
+
+      <CharacterStats
+        pdfData={pdfData}
+      />
+
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
@@ -119,10 +125,9 @@ export const Create = () => {
               </select>
             </div>
           )}
-          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
-            <h3>Character Stats:</h3>
-            <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
-          </div>
+
+
+
           <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2 h-full">
             <h3>Prompt:</h3>
             <textarea

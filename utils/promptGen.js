@@ -87,17 +87,14 @@ const createPrompt = (data) => {
   // returns a prompt with:
   // alignment, race (converted to prompt language or our unique identifier such as DnDDragonborn),
   // class, armorWorn, background & scene, "holding a dragons egg", descriptives
-  return `${styleOf} of ${data.alignment} ${data.gender ? data.gender : ""} ${
-    conversions[data.race.toLowerCase()]
+  return `${styleOf} of ${data.alignment} ${data.gender ? data.gender : ""} ${conversions[data.race.toLowerCase()]
       ? conversions[data.race.toLowerCase()]
       : data.race
-  }, ${conversions[data.class.toLowerCase()]}, wearing ${
-    data.armorWorn
-  } and holding a small dragon egg, ${
-    conversions[data.background.toLowerCase()]
+    }, ${conversions[data.class.toLowerCase()]}, wearing ${data.armorWorn
+    } and holding a small dragon egg, ${conversions[data.background.toLowerCase()]
       ? conversions[data.background.toLowerCase()]
       : data.background // or "in a cavern" or "in a mine"
-  }, ${descriptives}, in the style of ${styleOf}`;
+    }, ${descriptives}, in the style of ${styleOf}`;
 
   // Non-Dragonborn Solution 1.
   // return `${styleOf} of (${data.alignment}) ${data.race} ${
