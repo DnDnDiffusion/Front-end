@@ -107,7 +107,6 @@ button {
 .checkbox-stats {
   width: 24px;
   height: 24px;
-  appearance: none;
   opacity: 1;
   border: 1px solid white;
   border-radius: 4px;

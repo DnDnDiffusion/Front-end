@@ -91,32 +91,25 @@ export const Create = () => {
     setImageResult(result);
   };
 
-  const handleGenderSelect = (e) => {
-    setPdfData({ ...pdfData, gender: e.target.value });
-  };
 
   return (
     <div>
 
-      <CharacterStats
-        pdfData={pdfData}
-      />
-
-      <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
-        {/* left column */}
+      <div className="flex flex-col w-screen gap-2 justify-center items-center">
+        {/* upload section */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
-              Create
+              FEED A character sheet TO THE CREATOR
             </h2>
-            <HelpToggle />
+            {/*             <HelpToggle /> */}
           </div>
           <PDFParser
             setPdfData={setPdfData}
             pdfData={pdfData}
             setError={setError}
           />
-          {pdfData && (
+          {/*           {pdfData && (
             <div>
               <select onChange={handleGenderSelect} name="" id="">
                 <option value="">Select a gender (or dont)</option>
@@ -124,18 +117,33 @@ export const Create = () => {
                 <option value="Male">Male</option>
               </select>
             </div>
-          )}
+          )} */}
 
-
-
-          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2 h-full">
-            <h3>Prompt:</h3>
-            <textarea
-              onChange={(e) => setPrompt(e.target.value)}
-              className="w-full h-full bg-transparent"
-              value={prompt || ""}
+          <div className="flex flex-col items-center justify-center">
+            <CharacterStats
+              pdfData={pdfData}
+              prompt={prompt}
+              setPrompt={setPrompt}
+              setError={setError}
+              setPdfData={setPdfData}
             />
+
+            <h3>Edit Your Prompt Manually</h3>
+            <div className="bg-black text-left text-sm min-h-[150px] p-2 w-full">
+              <h3 className="mb-4">Your Prompt Was Recovered from the Fires of the Forge!</h3>
+              <textarea
+                onChange={(e) => setPrompt(e.target.value)}
+                className="w-full h-[200px] bg-transparent resize-none"
+                value={prompt || ""}
+              />
+            </div>
           </div>
+
+
+
+
+
+
         </div>
 
         {/* right column */}
