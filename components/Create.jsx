@@ -13,6 +13,7 @@ import SaveButton from "./SaveButton";
 import CopyButton from "./CopyButton";
 import CharacterStats from "./CharacterStats"
 import ToolTip from "./ToolTip"
+import WalletConnectButton from "./WalletConnectButton";
 
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -89,7 +90,7 @@ export const Create = () => {
     setImageProcessing(false);
     if (result.error) {
       return setError(result.error);
-    } npm
+    }
     setImageResult(result);
   };
 
@@ -149,10 +150,11 @@ export const Create = () => {
             </div>
             <p>CHARACTER IMAGES</p>
 
-            <div className="flex flex-col bg-black mt-8">
-              <h3 className="text-4xl">RESULTS</h3>
+            <div className="flex flex-col items-center bg-black mt-8">
+              <h3 className="text-4xl mb-4">RESULTS</h3>
+              <p>Select an image to save or mint</p>
               {/* images grid */}
-              <div className="md:w-2/3 min-h-[660px]">
+              <div className="md:w-2/3 m-4 mb-6">
                 {/* a grid of 9 images */}
                 <CreateImageGrid
                   imageResult={imageResult}
@@ -165,6 +167,7 @@ export const Create = () => {
             </div>
             <SaveButton selectedImage={selectedImage} />
             <CopyButton selectedImage={selectedImage} />
+            <WalletConnectButton />
             {isMinting ? (
               <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
                 Minting...

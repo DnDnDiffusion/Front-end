@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { LoadingTips } from "./LoadingTips";
 import Placeholder from "../public/images/CREATE/placeholder.png";
+import { useState } from "react";
 
 export const CreateImageGrid = ({
   imageProcessing,
@@ -16,6 +17,15 @@ export const CreateImageGrid = ({
     // console.log("imageProcessing: ", imageProcessing);
     // console.log("imageResult: ", imageResult);
   }, [imageProcessing, imageResult]);
+
+  const [currentSelection, setCurrentSelection] = useState(false)
+
+  function handleImageSelect(image, e) {
+    e.preventDefault();
+    setSelectedImage(image);
+    setCurrentSelection(parseInt(e.target.id))
+  }
+
 
   if (error)
     return (
@@ -48,9 +58,10 @@ export const CreateImageGrid = ({
         {imageResult.images.map((image, i) => {
           return (
             <Image
-              className="w-1/2"
+              className={`w-1/2 cursor-pointer m-2 ${currentSelection === i ? "border border-8" : null}`}
               key={i}
-              onClick={() => setSelectedImage(image)}
+              id={i}
+              onClick={(e) => handleImageSelect(image, e)}
               src={image}
               alt=""
               width={128}
@@ -71,7 +82,7 @@ export const CreateImageGrid = ({
   }
   return (
     <div className="grid grid-cols-3 gap-4 p-4">
-      <div className="">
+      <div className={`${imgState}`}>
         <Image src={Placeholder} alt="" />
       </div>
       <div className="">

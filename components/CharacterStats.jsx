@@ -75,7 +75,7 @@ const CharacterStats = ({ pdfData, prompt, setPrompt, setError, setPdfData, }) =
             {pdfData ? (
                 <>
                     <div>
-                        <div className="stats text-white h-[600px] w-[500px] pt-20">
+                        <div className="stats text-white pt-20 w-full md:3/6 h-[600px]">
                             <h3>Your Stats</h3>
 
                             <h4 className="text-center">From your Character Sheet</h4>
