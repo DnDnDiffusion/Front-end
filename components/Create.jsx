@@ -97,7 +97,7 @@ export const Create = () => {
 
       <div className="flex flex-col w-screen gap-2 justify-center items-center">
         {/* upload section */}
-        <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
+        <div className="flex flex-col xl:w-2/5 lg:w-2/5 md:3/5 sm: w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
               FEED A character sheet TO THE CREATOR
@@ -137,12 +137,41 @@ export const Create = () => {
                 value={prompt || ""}
               />
             </div>
+
+            <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6">
+              <Image
+                src="/images\CREATE\dice.svg"
+                alt=""
+                width={64}
+                height={64}
+                className="mr-4"
+              />
+              <button
+                className="flex items-center text-4xl"
+                onClick={generateImages}>
+                GENERATE
+              </button>
+            </div>
+            <p>CHARACTER IMAGES</p>
+
+            <div className="flex flex-col bg-black mt-8">
+              <h3 className="text-4xl">RESULTS</h3>
+              {/* images grid */}
+              <div className="md:w-2/3 min-h-[660px]">
+                {/* a grid of 9 images */}
+                <CreateImageGrid
+                  imageResult={imageResult}
+                  imageProcessing={imageProcessing}
+                  error={error}
+                  pdfData={pdfData}
+                  setSelectedImage={setSelectedImage}
+                />
+              </div>
+            </div>
+            <SaveButton selectedImage={selectedImage} />
+            <SaveButton selectedImage={selectedImage} />
+            <SaveButton selectedImage={selectedImage} />
           </div>
-
-
-
-
-
 
         </div>
 
@@ -151,11 +180,7 @@ export const Create = () => {
           {/* choosing column */}
           <div className="md:w-1/3 p-2">
             <div className="">
-              <h2 className="text-2xl">Result Images</h2>
-              <p>
-                Press <span className=" italic">upload</span> to begin
-                generating your avatar.
-              </p>
+              <h2 className="text-2xl">Results</h2>
             </div>
 
             <div className="flex flex-col items-center">
@@ -167,8 +192,7 @@ export const Create = () => {
                   width={128}
                   height={128}
                 />
-                <p className="text-sm italic">Click to enlarge</p>
-                <SaveButton selectedImage={selectedImage} />
+
               </div>
               {isMinting ? (
                 <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
@@ -199,23 +223,13 @@ export const Create = () => {
               )}
             </div>
           </div>
-          {/* images grid */}
-          <div className="md:w-2/3 min-h-[660px]">
-            {/* a grid of 9 images */}
-            <CreateImageGrid
-              imageResult={imageResult}
-              imageProcessing={imageProcessing}
-              error={error}
-              pdfData={pdfData}
-              setSelectedImage={setSelectedImage}
-            />
-          </div>
+
         </div>
       </div>
       {/* bottom box */}
-      <div className="flex justify-center">
+      {/*       <div className="flex justify-center">
         <CharacterBackstory pdfData={pdfData} />
-      </div>
+      </div> */}
     </div>
   );
 };

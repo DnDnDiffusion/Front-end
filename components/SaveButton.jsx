@@ -12,7 +12,7 @@ const SaveButton = (selectedImage) => {
             selectedImage.selectedImage
           );
         }}
-        className="save-button flex flex-col text-black p-8"
+        className="save-button flex flex-col text-black p-8 text-4xl"
       >
         SAVE
         <div className="flex justify-center content-center">
@@ -24,7 +24,7 @@ const SaveButton = (selectedImage) => {
               height={20}
             />
           </div>
-          <p className="text-md">PNG</p>
+          <p className="text-xl">PNG</p>
         </div>
       </a>
     </>

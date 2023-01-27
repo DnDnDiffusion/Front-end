@@ -48,7 +48,7 @@ export const CreateImageGrid = ({
         {imageResult.images.map((image, i) => {
           return (
             <Image
-              className="w-1/2"
+              className="w-full"
               key={i}
               onClick={() => setSelectedImage(image)}
               src={image}
