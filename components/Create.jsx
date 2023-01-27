@@ -10,6 +10,7 @@ import Placeholder from "../public/images/CREATE/placeholder.png";
 import HelpToggle from "./HelpToggle";
 import { CONSTANTS } from "../utils/CONSTANTS";
 import SaveButton from "./SaveButton";
+import CopyButton from "./CopyButton";
 import CharacterStats from "./CharacterStats"
 import ToolTip from "./ToolTip"
 
@@ -88,23 +89,20 @@ export const Create = () => {
     setImageProcessing(false);
     if (result.error) {
       return setError(result.error);
-    }
+    } npm
     setImageResult(result);
   };
 
 
   return (
-
+    <>
       <ToolTip />
-      <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
-        {/* left column */}
+      <div className="flex flex-col xl:flex-nowrap w-screen gap-2 justify-start items-center">
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
               FEED A character sheet TO THE CREATOR
             </h2>
-
-            {/*             <HelpToggle /> */}
 
           </div>
           <PDFParser
@@ -112,15 +110,6 @@ export const Create = () => {
             pdfData={pdfData}
             setError={setError}
           />
-          {/*           {pdfData && (
-            <div>
-              <select onChange={handleGenderSelect} name="" id="">
-                <option value="">Select a gender (or dont)</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-              </select>
-            </div>
-          )} */}
 
           <div className="flex flex-col items-center justify-center">
             <CharacterStats
@@ -141,7 +130,7 @@ export const Create = () => {
               />
             </div>
 
-            <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6">
+            <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6 animate-pulse">
               <Image
                 src="/images\CREATE\dice.svg"
                 alt=""
@@ -150,8 +139,11 @@ export const Create = () => {
                 className="mr-4"
               />
               <button
+                type="button"
                 className="flex items-center text-4xl"
-                onClick={generateImages}>
+                onClick={generateImages}
+                disabled={pdfData ? false : true}
+              >
                 GENERATE
               </button>
             </div>
@@ -172,67 +164,37 @@ export const Create = () => {
               </div>
             </div>
             <SaveButton selectedImage={selectedImage} />
-            <SaveButton selectedImage={selectedImage} />
-            <SaveButton selectedImage={selectedImage} />
+            <CopyButton selectedImage={selectedImage} />
+            {isMinting ? (
+              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
+                Minting...
+              </p>
+            ) : imageResult ? (
+              <p
+                className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
+                onClick={mintAvatar}
+              >
+                Mint Avatar
+              </p>
+            ) : imageProcessing ? (
+              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
+                images loading...
+              </p>
+            ) : pdfData ? (
+              <p
+                className="w-fit bg-emerald-600 hover:bg-emerald-500 py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
+                onClick={generateImages}
+              >
+                Generate Images
+              </p>
+            ) : (
+              <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
+                Upload first!
+              </p>
+            )}
           </div>
-
-        </div>
-
-        {/* right column */}
-        <div className="flex md:flex-nowrap flex-wrap xl:w-3/5 lg:w-full bg-[#110402] text-left h-full">
-          {/* choosing column */}
-          <div className="md:w-1/3 p-2">
-            <div className="">
-              <h2 className="text-2xl">Results</h2>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <div className="flex flex-col justify-center items-center">
-                <Image
-                  className="w-1/2"
-                  src={selectedImage || Placeholder}
-                  alt=""
-                  width={128}
-                  height={128}
-                />
-
-              </div>
-              {isMinting ? (
-                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
-                  Minting...
-                </p>
-              ) : imageResult ? (
-                <p
-                  className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
-                  onClick={mintAvatar}
-                >
-                  Mint Avatar
-                </p>
-              ) : imageProcessing ? (
-                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
-                  images loading...
-                </p>
-              ) : pdfData ? (
-                <p
-                  className="w-fit bg-emerald-600 hover:bg-emerald-500 py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
-                  onClick={generateImages}
-                >
-                  Generate Images
-                </p>
-              ) : (
-                <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
-                  Upload first!
-                </p>
-              )}
-            </div>
-          </div>
-
         </div>
       </div>
-      {/* bottom box */}
-      {/*       <div className="flex justify-center">
-        <CharacterBackstory pdfData={pdfData} />
-      </div> */}
-    </div>
+    </>
   );
 };
