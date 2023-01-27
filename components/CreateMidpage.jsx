@@ -50,8 +50,8 @@ export default function CreateMidpage() {
             />
           </Link>
         </div>
-        <div className="flex flex-row sm:flex-col justify-center align-center items-center bg-[#110402] p-6 md:w-1/4 w-4/5 m-3">
-          <p className="justify-center text-center">
+        <div id="receive" className="flex flex-row sm:flex-col justify-center align-center items-center bg-[#110402] p-6 md:w-1/4 w-4/5 m-3">
+          <p  className="justify-center text-center">
             Receive 3, 4 or 9 avatar images based on your character sheet
           </p>
           <Link href="#create">
