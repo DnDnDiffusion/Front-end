@@ -11,6 +11,7 @@ import HelpToggle from "./HelpToggle";
 import { CONSTANTS } from "../utils/CONSTANTS";
 import SaveButton from "./SaveButton";
 import CharacterStats from "./CharacterStats"
+import ToolTip from "./ToolTip"
 
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -93,16 +94,18 @@ export const Create = () => {
 
 
   return (
-    <div>
 
-      <div className="flex flex-col w-screen gap-2 justify-center items-center">
-        {/* upload section */}
-        <div className="flex flex-col xl:w-2/5 lg:w-2/5 md:3/5 sm: w-full p-4 gap-4 justify-around">
+      <ToolTip />
+      <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
+        {/* left column */}
+        <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
               FEED A character sheet TO THE CREATOR
             </h2>
+
             {/*             <HelpToggle /> */}
+
           </div>
           <PDFParser
             setPdfData={setPdfData}

@@ -64,7 +64,6 @@ h1 {
   text-align: center;
 }
 
-
 .hidden {
   display: none;
 }
@@ -81,7 +80,6 @@ button {
 }
 
 .logo {
-
   height: 3em;
   width: 3em;
 }
@@ -111,6 +109,22 @@ button {
   border: 1px solid white;
   border-radius: 4px;
   cursor: pointer;
+}
+
+  #logo Image{
+    height: 3em;
+    width: 3em;
+  }
+
+  .fire-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.fire-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 300ms ease-in;
 }
 
 .checkbox-stats:checked {
