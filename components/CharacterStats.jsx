@@ -93,6 +93,7 @@ const CharacterStats = ({ pdfData, prompt, setPrompt, setError, setPdfData, }) =
                                         className="checkbox-stats"
                                         onChange={handleLevelSelect}
                                         defaultChecked
+                                        readOnly
                                     ></input>
                                     <p className="mx-4">CLASS: </p>
                                     <textarea
@@ -192,7 +193,7 @@ const CharacterStats = ({ pdfData, prompt, setPrompt, setError, setPdfData, }) =
                     <div>
                         <p className="mx-[48px] mb-2 mt-6">ON</p>
                         <div className="flex items-center mx-[48px] mt-2 mb-6">
-                            <input type="checkbox" className="checkbox-stats" checked></input>
+                            <input type="checkbox" className="checkbox-stats" checked readOnly></input>
                             <p className="mx-4">RACE: Dragonborn (LOCKED)</p>
                         </div>
                         <div className="flex items-center mx-[48px] my-6">
