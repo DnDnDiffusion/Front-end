@@ -16,7 +16,7 @@ import Button from "./Button";
 export default function CreateHero() {
   return (
     <div>
-      {/* Navbar */}
+
       {/* Hero Images */}
         <div className="relative flex justify-center bg-pink-400">
           <div className="absolute top-2">
@@ -25,7 +25,6 @@ export default function CreateHero() {
       <div className="absolute top-8">
         <HamburgerMenu />
         
-    
         
       </div>
       <div className="w-full max-h-screen">
@@ -71,4 +70,5 @@ export default function CreateHero() {
       </div>
     
   );
+
 }
