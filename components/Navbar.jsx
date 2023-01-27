@@ -1,9 +1,12 @@
-import Image from "next/image";
-import Logo from "../public/images/CREATE-hero/logo.png";
-import React, { useState,useRef } from "react";
+import Image from "next/image"
+import Logo from "../public/images/CREATE-hero/logo.png"
+import React, { useState, useRef } from "react"
+import WalletConnectButton from "./WalletConnectButton"
+import Link from "next/link"
 
 
 export default function Navbar() {
+
   const [navMenuVisible, setNavMenuVisible] = useState(true);
     // Define the toggleNavMenu function
     const toggleNavMenu = () => {
@@ -46,4 +49,3 @@ export default function Navbar() {
   </nav>
   );
   }
- 

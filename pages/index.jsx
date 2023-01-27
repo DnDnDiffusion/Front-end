@@ -48,11 +48,9 @@ export default function Home() {
 
   return (
     <div>
-      <CreateHero />
-      <CreateMidpage />
-      <div>
-        <Create />
-      </div>
+      <Create />
+      {/*       <CreateHero />
+      <CreateMidpage /> */}
     </div>
   );
 }

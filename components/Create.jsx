@@ -1,56 +1,75 @@
-import Image from "next/image"
-import React from "react"
-import { useEffect, useState } from "react"
-import { createPrompt } from "../utils/promptGen"
-import { CharacterBackstory } from "./CharacterBackstory"
-import { CreateImageGrid } from "./CreateImageGrid"
-import PDFParser from "./PDFParser"
-import Placeholder from "../public/images/CREATE/placeholder.png"
-import HelpToggle from "./HelpToggle"
+import Image from "next/image";
+import React from "react";
+import { useEffect, useState } from "react";
+import { createPrompt } from "../utils/promptGen";
+import { avatarNFTSTORAGE } from "../utils/web3utils";
+import { CharacterBackstory } from "./CharacterBackstory";
+import { CreateImageGrid } from "./CreateImageGrid";
+import PDFParser from "./PDFParser";
+import Placeholder from "../public/images/CREATE/placeholder.png";
+import HelpToggle from "./HelpToggle";
+import { CONSTANTS } from "../utils/CONSTANTS";
+import SaveButton from "./SaveButton";
+import CharacterStats from "./CharacterStats"
 import ToolTip from "./ToolTip"
 
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 export const Create = () => {
-  const [pdfData, setPdfData] = useState(null) //url
-  const [prompt, setPrompt] = useState(null) //url
-  const [imageProcessing, setImageProcessing] = useState(false) //processing state ie. loading...
-  const [error, setError] = useState(null) //error msg
-  const [imageResult, setImageResult] = useState(null) //url
-  const [selectedImage, setSelectedImage] = useState(null) //image chosen by user
-  const [isMinting, setIsMinting] = useState(false) //minting nft state ie. loading...
+  const [pdfData, setPdfData] = useState(null); //url
+  const [prompt, setPrompt] = useState(null); //url
+  const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
+  const [error, setError] = useState(null); //error msg
+  const [imageResult, setImageResult] = useState(null); //url
+  const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
+  const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
+  const [metadataUrl, setMetadataUrl] = useState(null); //url
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: CONSTANTS.contractAddress,
+    abi: CONSTANTS.contractABI,
+    functionName: "mint",
+    // args: [],
+    chainId: 5,
+  });
 
   //states: no data, pdf uploaded, images generated, nft minted
 
   useEffect(() => {
     if (pdfData) {
-      console.log("pdfData: ", pdfData)
+      console.log("pdfData: ", pdfData);
       //create text prompt using pdfData and other data
-      const prompt = createPrompt(pdfData)
-      console.log("prompt: ", prompt)
-      setPrompt(prompt)
-      setError(null)
+      const prompt = createPrompt(pdfData);
+      console.log("prompt: ", prompt);
+      setPrompt(prompt);
+      setError(null);
     }
-  }, [pdfData])
+  }, [pdfData]);
 
   const mintAvatar = async () => {
-    setIsMinting(true)
-    console.log("Minting avatar...")
-    // upload image to ipfs
-    //create standard metadata object
-    //add cid to metadata object
-    //upload metadata to ipfs
-    // const cid = uploadDataToIPFS(xx) //example from web3utils.js
+    setIsMinting(true);
+    console.log("Minting avatar...");
+
+    const _metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData); //returns url of metadata json
+    console.log("metadata url: ", _metadataUrl);
+    setMetadataUrl(_metadataUrl);
+
     //mint nft
-    // const tx = await mintNFT(cid)
+    const mintResult = write({
+      recklesslySetUnpreparedArgs: [_metadataUrl],
+    });
+    console.log("mintResult: ", mintResult);
     //check for error
-    //isminting = false
-  }
+    setIsMinting(false);
+  };
 
   const generateImages = async () => {
-    console.log("Generating images...")
-    setError(false)
-    setImageProcessing(true)
+    console.log("Generating images... for ", prompt);
+    setError(false);
+    setImageProcessing(true);
     const fetchResult = await fetch("/api/getImage", {
+      // <------------- COMMENTED OUT FOR TESTING
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,38 +78,41 @@ export const Create = () => {
       body: JSON.stringify({
         data: prompt,
       }),
-    }) //result is given as base64 encoded images
-    const result = await fetchResult.json()
-    console.log("result: ", result)
+    }); //result is given as base64 encoded images
+    const result = await fetchResult.json();
 
-    setImageProcessing(false)
+    // const result = { images: [CONSTANTS.testBase64Image] }; // <------------- THIS IS FOR TESTING
+
+    // console.log("result: ", result)
+
+    setImageProcessing(false);
     if (result.error) {
-      return setError(result.error)
+      return setError(result.error);
     }
-    setImageResult(result)
-  }
+    setImageResult(result);
+  };
 
-  const handleGenderSelect = (e) => {
-    console.log(e.target.value)
-    setPdfData({ ...pdfData, gender: e.target.value })
-  }
 
   return (
-    <div>
+
       <ToolTip />
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
           <div className="w-full h-full text-left flex flex-row space-between">
             <h2 id="create" className=" text-4xl">
-              Create
+              FEED A character sheet TO THE CREATOR
             </h2>
-            
-            <HelpToggle />
-            
+
+            {/*             <HelpToggle /> */}
+
           </div>
-          <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
-          {pdfData && (
+          <PDFParser
+            setPdfData={setPdfData}
+            pdfData={pdfData}
+            setError={setError}
+          />
+          {/*           {pdfData && (
             <div>
               <select onChange={handleGenderSelect} name="" id="">
                 <option value="">Select a gender (or dont)</option>
@@ -98,19 +120,62 @@ export const Create = () => {
                 <option value="Male">Male</option>
               </select>
             </div>
-          )}
-          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2">
-            <h3>Character Stats:</h3>
-            <p className="w-full break-words">{JSON.stringify(pdfData)}</p>
-          </div>
-          <div className="bg-[#110402] text-left text-sm min-h-[150px] p-2 h-full">
-            <h3>Prompt:</h3>
-            <textarea
-              onChange={(e) => setPrompt(e.target.value)}
-              className="w-full h-full bg-transparent"
-              value={prompt || ""}
+          )} */}
+
+          <div className="flex flex-col items-center justify-center">
+            <CharacterStats
+              pdfData={pdfData}
+              prompt={prompt}
+              setPrompt={setPrompt}
+              setError={setError}
+              setPdfData={setPdfData}
             />
+
+            <h3>Edit Your Prompt Manually</h3>
+            <div className="bg-black text-left text-sm min-h-[150px] p-2 w-full">
+              <h3 className="mb-4">Your Prompt Was Recovered from the Fires of the Forge!</h3>
+              <textarea
+                onChange={(e) => setPrompt(e.target.value)}
+                className="w-full h-[200px] bg-transparent resize-none"
+                value={prompt || ""}
+              />
+            </div>
+
+            <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6">
+              <Image
+                src="/images\CREATE\dice.svg"
+                alt=""
+                width={64}
+                height={64}
+                className="mr-4"
+              />
+              <button
+                className="flex items-center text-4xl"
+                onClick={generateImages}>
+                GENERATE
+              </button>
+            </div>
+            <p>CHARACTER IMAGES</p>
+
+            <div className="flex flex-col bg-black mt-8">
+              <h3 className="text-4xl">RESULTS</h3>
+              {/* images grid */}
+              <div className="md:w-2/3 min-h-[660px]">
+                {/* a grid of 9 images */}
+                <CreateImageGrid
+                  imageResult={imageResult}
+                  imageProcessing={imageProcessing}
+                  error={error}
+                  pdfData={pdfData}
+                  setSelectedImage={setSelectedImage}
+                />
+              </div>
+            </div>
+            <SaveButton selectedImage={selectedImage} />
+            <SaveButton selectedImage={selectedImage} />
+            <SaveButton selectedImage={selectedImage} />
           </div>
+
         </div>
 
         {/* right column */}
@@ -118,16 +183,19 @@ export const Create = () => {
           {/* choosing column */}
           <div className="md:w-1/3 p-2">
             <div className="">
-              <h2 className="text-2xl">Result Images</h2>
-              <p>
-                Press <span className=" italic">upload</span> to begin generating your avatar.
-              </p>
+              <h2 className="text-2xl">Results</h2>
             </div>
 
             <div className="flex flex-col items-center">
               <div className="flex flex-col justify-center items-center">
-                <Image className="w-1/2" src={selectedImage || Placeholder} alt="" width={128} height={128} />
-                <p className="text-sm italic">Click to enlarge</p>
+                <Image
+                  className="w-1/2"
+                  src={selectedImage || Placeholder}
+                  alt=""
+                  width={128}
+                  height={128}
+                />
+
               </div>
               {isMinting ? (
                 <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
@@ -159,23 +227,12 @@ export const Create = () => {
             </div>
           </div>
 
-          {/* images grid */}
-          <div className="md:w-2/3 min-h-[660px]">
-            {/* a grid of 9 images */}
-            <CreateImageGrid
-              imageResult={imageResult}
-              imageProcessing={imageProcessing}
-              error={error}
-              pdfData={pdfData}
-              setSelectedImage={setSelectedImage}
-            />
-          </div>
         </div>
       </div>
       {/* bottom box */}
-      <div className="flex justify-center">
+      {/*       <div className="flex justify-center">
         <CharacterBackstory pdfData={pdfData} />
-      </div>
+      </div> */}
     </div>
-  )
-}
+  );
+};
