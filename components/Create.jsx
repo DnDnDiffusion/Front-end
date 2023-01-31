@@ -14,6 +14,7 @@ import CopyButton from "./CopyButton";
 import CharacterStats from "./CharacterStats"
 import ToolTip from "./ToolTip"
 import WalletConnectButton from "./WalletConnectButton";
+import MintButton from "./MintButton"
 
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -113,61 +114,67 @@ export const Create = () => {
           />
 
           <div className="flex flex-col items-center justify-center">
-            <CharacterStats
-              pdfData={pdfData}
-              prompt={prompt}
-              setPrompt={setPrompt}
-              setError={setError}
-              setPdfData={setPdfData}
-            />
-
-            <h3>Edit Your Prompt Manually</h3>
-            <div className="bg-black text-left text-sm min-h-[150px] p-2 w-full">
-              <h3 className="mb-4">Your Prompt Was Recovered from the Fires of the Forge!</h3>
-              <textarea
-                onChange={(e) => setPrompt(e.target.value)}
-                className="w-full h-[200px] bg-transparent resize-none"
-                value={prompt || ""}
-              />
-            </div>
-
-            <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6 animate-pulse">
-              <Image
-                src="/images\CREATE\dice.svg"
-                alt=""
-                width={64}
-                height={64}
-                className="mr-4"
-              />
-              <button
-                type="button"
-                className="flex items-center text-4xl"
-                onClick={generateImages}
-                disabled={pdfData ? false : true}
-              >
-                GENERATE
-              </button>
-            </div>
-            <p>CHARACTER IMAGES</p>
-
-            <div className="flex flex-col items-center bg-black mt-8">
-              <h3 className="text-4xl mb-4">RESULTS</h3>
-              <p>Select an image to save or mint</p>
-              {/* images grid */}
-              <div className="md:w-2/3 m-4 mb-6">
-                {/* a grid of 9 images */}
-                <CreateImageGrid
-                  imageResult={imageResult}
-                  imageProcessing={imageProcessing}
-                  error={error}
+            {pdfData ? (
+              <>
+                <CharacterStats
                   pdfData={pdfData}
-                  setSelectedImage={setSelectedImage}
+                  prompt={prompt}
+                  setPrompt={setPrompt}
+                  setError={setError}
+                  setPdfData={setPdfData}
                 />
-              </div>
-            </div>
-            <SaveButton selectedImage={selectedImage} />
-            <CopyButton selectedImage={selectedImage} />
-            <WalletConnectButton />
+                <h3>Edit Your Prompt Manually</h3>
+                <div className="bg-black text-left text-sm min-h-[150px] p-2 w-full">
+                  <h3 className="mb-4">Your Prompt Was Recovered from the Fires of the Forge!</h3>
+                  <textarea
+                    onChange={(e) => setPrompt(e.target.value)}
+                    className="w-full h-[200px] bg-transparent resize-none"
+                    value={prompt || ""}
+                  />
+                </div>
+
+                <div className="flex w-72 item-center justify-center text-center align-center bg-black p-4 mt-6 animate-pulse">
+                  <Image
+                    src="/images\CREATE\dice.svg"
+                    alt=""
+                    width={64}
+                    height={64}
+                    className="mr-4"
+                  />
+                  <button
+                    type="button"
+                    className="flex items-center text-4xl"
+                    onClick={generateImages}
+                    disabled={pdfData ? false : true}
+                  >
+                    GENERATE
+                  </button>
+                </div>
+                <p>CHARACTER IMAGES</p>
+
+                <div className="flex flex-col items-center bg-black mt-8">
+                  <h3 className="text-4xl mb-4">RESULTS</h3>
+                  <p>Select an image to save or mint</p>
+                  {/* images grid */}
+                  <div className="md:w-2/3 m-4 mb-6">
+                    {/* a grid of 9 images */}
+                    <CreateImageGrid
+                      imageResult={imageResult}
+                      imageProcessing={imageProcessing}
+                      error={error}
+                      pdfData={pdfData}
+                      setSelectedImage={setSelectedImage}
+                    />
+                  </div>
+                </div>
+                <MintButton selectedImage={selectedImage} />
+                <SaveButton selectedImage={selectedImage} />
+                <CopyButton selectedImage={selectedImage} />
+                <WalletConnectButton />
+              </>
+            ) : <></>
+            }
+
             {isMinting ? (
               <p className="w-fit bg-[#D89A00] hover:bg-[#ab8933] py-1 px-6 rounded-full text-black cursor-not-allowed">
                 Minting...
