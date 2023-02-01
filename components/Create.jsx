@@ -10,6 +10,7 @@ import Placeholder from "../public/images/CREATE/placeholder.png";
 import HelpToggle from "./HelpToggle";
 import { CONSTANTS } from "../utils/CONSTANTS";
 import SaveButton from "./SaveButton";
+import { CID } from "multiformats/cid";
 
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
@@ -22,6 +23,8 @@ export const Create = () => {
   const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
   const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
   const [metadataUrl, setMetadataUrl] = useState(null); //url
+
+  // let isBacalhauOn = true; // if true, don't us generateImages
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
     mode: "recklesslyUnprepared",
@@ -60,6 +63,43 @@ export const Create = () => {
     console.log("mintResult: ", mintResult);
     //check for error
     setIsMinting(false);
+  };
+
+  const getBacalhauImages = async () => {
+    console.log("bacalhau images...", isBacalhauOn);
+    setError(false);
+    setImageProcessing(true);
+    const url = "http://dashboard.bacalhau.org:1000/api/v1/stablediffusion";
+    const headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+    const data = {
+      prompt: prompt, //The user text prompt!
+    };
+    console.log(data);
+    /* FETCH FROM BACALHAU ENDPOINT */
+    const cid = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: headers,
+    })
+      .then(async (res) => {
+        let body = await res.json();
+        if (body.cid) {
+          /* Bacalhau returns a V0 CID which we want to convert to a V1 CID for easier usage with http gateways (ie. displaying the image on web), so I'm using the IPFS multiformats package to convert it here */
+          return CID.parse(body.cid).toV1().toString();
+        }
+      })
+      .catch((err) => {
+        console.log("error in bac job", err);
+      });
+    console.log("cid: ", cid);
+    const result = { images: [cid] };
+    setImageProcessing(false);
+    if (result.error) {
+      return setError(result.error);
+    }
+    setImageResult(result);
   };
 
   const generateImages = async () => {
@@ -175,7 +215,8 @@ export const Create = () => {
               ) : pdfData ? (
                 <p
                   className="w-fit bg-emerald-600 hover:bg-emerald-500 py-1 px-6 rounded-full text-black cursor-pointer animate-pulse"
-                  onClick={generateImages}
+                  onClick={generateImages} // if bacalhau is off and pdfData
+                  // onClick={getBacalhauImages} // if isBacalhauOn is on and there's
                 >
                   Generate Images
                 </p>

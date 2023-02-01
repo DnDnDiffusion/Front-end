@@ -51,6 +51,7 @@ export const CreateImageGrid = ({
               className="w-1/2"
               key={i}
               onClick={() => setSelectedImage(image)}
+              // src={`ipfs://${image}`}
               src={image}
               alt=""
               width={128}
