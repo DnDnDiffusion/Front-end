@@ -1,81 +1,107 @@
-import Image from "next/image";
-import React from "react";
-import { useEffect, useState } from "react";
-import { createPrompt } from "../utils/promptGen";
-import { CharacterBackstory } from "./CharacterBackstory";
-import { CreateImageGrid } from "./CreateImageGrid";
-import PDFParser from "./PDFParser";
+import Image from "next/image"
+import React from "react"
+import { useEffect, useState } from "react"
+import { createPrompt } from "../utils/promptGen"
+import { avatarNFTSTORAGE } from "../utils/web3utils"
+import { CharacterBackstory } from "./CharacterBackstory"
+import { CreateImageGrid } from "./CreateImageGrid"
+import PDFParser from "./PDFParser"
+import Placeholder from "../public/images/CREATE/placeholder.png"
+import HelpToggle from "./HelpToggle"
+import { CONSTANTS } from "../utils/CONSTANTS"
+
+import { useContractWrite, usePrepareContractWrite } from "wagmi"
 
 export const Create = () => {
-  const [pdfData, setPdfData] = useState(null); //url
-  const [prompt, setPrompt] = useState(null); //url
-  const [imageProcessing, setImageProcessing] = useState(false); //processing state ie. loading...
-  const [error, setError] = useState(null); //error msg
-  const [imageResult, setImageResult] = useState(null); //url
-  const [selectedImage, setSelectedImage] = useState(null); //image chosen by user
-  const [isMinting, setIsMinting] = useState(false); //minting nft state ie. loading...
+  const [pdfData, setPdfData] = useState(null) //url
+  const [prompt, setPrompt] = useState(null) //url
+  const [imageProcessing, setImageProcessing] = useState(false) //processing state ie. loading...
+  const [error, setError] = useState(null) //error msg
+  const [imageResult, setImageResult] = useState(null) //url
+  const [selectedImage, setSelectedImage] = useState(null) //image chosen by user
+  const [isMinting, setIsMinting] = useState(false) //minting nft state ie. loading...
+  const [metadataUrl, setMetadataUrl] = useState(null) //url
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    mode: "recklesslyUnprepared",
+    address: CONSTANTS.contractAddress,
+    abi: CONSTANTS.contractABI,
+    functionName: "mint",
+    // args: [],
+    chainId: 5,
+  })
 
   //states: no data, pdf uploaded, images generated, nft minted
 
   useEffect(() => {
     if (pdfData) {
-      console.log("pdfData: ", pdfData);
+      console.log("pdfData: ", pdfData)
       //create text prompt using pdfData and other data
-      const prompt = createPrompt(pdfData);
-      console.log("prompt: ", prompt);
-      setPrompt(prompt);
-      setError(null);
+      const prompt = createPrompt(pdfData)
+      console.log("prompt: ", prompt)
+      setPrompt(prompt)
+      setError(null)
     }
-  }, [pdfData]);
+  }, [pdfData])
 
   const mintAvatar = async () => {
-    setIsMinting(true);
-    console.log("Minting avatar...");
-    // upload image to ipfs
-    //create standard metadata object
-    //add cid to metadata object
-    //upload metadata to ipfs
+    setIsMinting(true)
+    console.log("Minting avatar...")
+
+    const _metadataUrl = await avatarNFTSTORAGE(selectedImage, prompt, pdfData) //returns url of metadata json
+    console.log("metadata url: ", _metadataUrl)
+    setMetadataUrl(_metadataUrl)
+
     //mint nft
+    const mintResult = write({
+      recklesslySetUnpreparedArgs: [_metadataUrl],
+    })
+    console.log("mintResult: ", mintResult)
     //check for error
-    //isminting = false
-  };
+    setIsMinting(false)
+  }
 
   const generateImages = async () => {
-    console.log("Generating images...");
-    setError(false);
-    setImageProcessing(true);
-    const fetchResult = await fetch("/api/getImage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        data: prompt,
-      }),
-    }); //result is given as base64 encoded images
-    const result = await fetchResult.json();
-    console.log("result: ", result);
+    console.log("Generating images... for ", prompt)
+    setError(false)
+    setImageProcessing(true)
+    // const fetchResult = await fetch("/api/getImage", { // <------------- COMMENTED OUT FOR TESTING
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     data: prompt,
+    //   }),
+    // }) //result is given as base64 encoded images
+    // const result = await fetchResult.json()
 
-    setImageProcessing(false);
+    const result = { images: [CONSTANTS.testBase64Image] } // <------------- THIS IS FOR TESTING
+
+    // console.log("result: ", result)
+
+    setImageProcessing(false)
     if (result.error) {
-      return setError(result.error);
+      return setError(result.error)
     }
-    setImageResult(result);
-  };
+    setImageResult(result)
+  }
 
   const handleGenderSelect = (e) => {
-    console.log(e.target.value);
-    setPdfData({ ...pdfData, gender: e.target.value });
-  };
+    setPdfData({ ...pdfData, gender: e.target.value })
+  }
 
   return (
     <div>
       <div className="flex flex-wrap xl:flex-nowrap w-screen gap-2 justify-start items-start">
         {/* left column */}
         <div className="flex flex-col xl:w-2/5 w-full p-4 gap-4 justify-around">
-          <div className="w-full h-full text-left">
-            <h2 className=" text-4xl">Create</h2>
+          <div className="w-full h-full text-left flex flex-row space-between">
+            <h2 id="create" className=" text-4xl">
+              Create
+            </h2>
+            <HelpToggle />
           </div>
           <PDFParser setPdfData={setPdfData} pdfData={pdfData} setError={setError} />
           {pdfData && (
@@ -114,7 +140,7 @@ export const Create = () => {
 
             <div className="flex flex-col items-center">
               <div className="flex flex-col justify-center items-center">
-                <img className="w-1/2" src={selectedImage || "/images/CREATE/placeholder.png"} alt="" />
+                <Image className="w-1/2" src={selectedImage || Placeholder} alt="" width={128} height={128} />
                 <p className="text-sm italic">Click to enlarge</p>
               </div>
               {isMinting ? (
@@ -165,5 +191,5 @@ export const Create = () => {
         <CharacterBackstory pdfData={pdfData} />
       </div>
     </div>
-  );
-};
+  )
+}

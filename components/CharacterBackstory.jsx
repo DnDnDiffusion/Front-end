@@ -1,18 +1,19 @@
-import React from "react";
-import { useState } from "react";
+import React from "react"
+import { useState } from "react"
+import { CONSTANTS } from "../utils/CONSTANTS"
 
 export const CharacterBackstory = ({ pdfData }) => {
-  const [backstory, setBackstory] = useState("");
-  const [generating, setGenerating] = useState(false);
+  const [backstory, setBackstory] = useState("")
+  const [generating, setGenerating] = useState(false)
 
   const generateBackstory = async () => {
-    setGenerating(true);
-    delete pdfData.playerName;
-    delete pdfData.level;
-    delete pdfData.xp;
-    delete pdfData.profBonus;
+    setGenerating(true)
+    delete pdfData.playerName
+    delete pdfData.level
+    delete pdfData.xp
+    delete pdfData.profBonus
 
-    console.log("generating backstory from pdfData: ", pdfData);
+    console.log("generating backstory from pdfData: ", pdfData)
     const gptResult = await fetch("/api/gpt", {
       method: "POST",
       headers: {
@@ -20,14 +21,15 @@ export const CharacterBackstory = ({ pdfData }) => {
         Accept: "application/json",
       },
       body: JSON.stringify({
+        prefix: CONSTANTS.gptPrefixDescription,
         data: pdfData,
       }),
-    });
-    const result = await gptResult.json();
-    console.log("result: ", result.output.text);
-    setBackstory(result.output.text);
-    setGenerating(false);
-  };
+    })
+    const result = await gptResult.json()
+    console.log("result: ", result.output.text)
+    setBackstory(result.output.text)
+    setGenerating(false)
+  }
 
   return (
     <div className=" bg-orange-900 min-h-fit p-20 w-full">
@@ -45,5 +47,5 @@ export const CharacterBackstory = ({ pdfData }) => {
       )}
       {/* <textarea value={JSON.stringify(pdfData)} className="min-h-[300px] w-full bg-transparent"></textarea> */}
     </div>
-  );
-};
+  )
+}

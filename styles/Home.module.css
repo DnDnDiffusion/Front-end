@@ -1,5 +1,7 @@
 .container {
   padding: 0 2rem;
+  position: relative;
+  width: 930px;
 }
 
 .main {
@@ -61,8 +63,8 @@
   border-radius: 5px;
   padding: 0.75rem;
   font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
-    monospace;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
 .grid {
@@ -123,7 +125,8 @@
   .code {
     background: #111;
   }
-  .logo img {
+  .logo Image {
     filter: invert(1);
   }
 }
+

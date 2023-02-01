@@ -4,13 +4,10 @@ import { useState, useEffect } from "react";
 import { avatarNFTSTORAGE } from "../utils/web3utils";
 import elfImage from "../public/elf-3600557344.png";
 import PDFParser from "../components/PDFParser";
-import CreateHeader from "../components/CreateHeader";
+import CreateHero from "../components/CreateHero";
 import CreateMidpage from "../components/CreateMidpage";
-
 // import { createPrompt } from "../utils/promptGen";
 import { Create } from "../components/Create";
-
-
 export default function Home() {
   const [data, setData] = useState({
     race: "",
@@ -51,9 +48,9 @@ export default function Home() {
 
   return (
     <div>
-      <CreateHeader />
+      <CreateHero />
       <CreateMidpage />
-      <div >
+      <div>
         <Create />
       </div>
     </div>

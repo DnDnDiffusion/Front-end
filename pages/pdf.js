@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
-<link id="pagestyle" href="default.css" rel="stylesheet" type="text/css"/>
+<link id="pagestyle" href="default.css" rel="stylesheet" type="text/css" />;
 
 export default function Home() {
   const [data, setData] = useState({
@@ -44,39 +44,38 @@ export default function Home() {
       {/* <form method="post"> */}
 
       <div id="inputs">
-      <input
-        onChange={(e) => setValue(e)}
-        type="text"
-        name="race"
-        placeholder="Enter your race"
-      />
-      <input
-        onChange={(e) => setValue(e)}
-        type="text"
-        name="class"
-        placeholder="Enter your class"
-      />
-      <select id="gender" name="gender">
-        <option value="Male">Male</option> 
-        <option value="Female">Female</option>
-        <option value="Non-Binary">Non-Binary</option>
-      </select>
+        <input
+          onChange={(e) => setValue(e)}
+          type="text"
+          name="race"
+          placeholder="Enter your race"
+        />
+        <input
+          onChange={(e) => setValue(e)}
+          type="text"
+          name="class"
+          placeholder="Enter your class"
+        />
+        <select id="gender" name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Non-Binary">Non-Binary</option>
+        </select>
 
-      <button onClick={send} type="submit" name="submit">
-        {imageProcessing ? "Waiting for image..." : "Send"}
-      </button>
+        <button onClick={send} type="submit" name="submit">
+          {imageProcessing ? "Waiting for image..." : "Send"}
+        </button>
       </div>
       <br></br>
 
       <div id="imagegeneration">
-      {imageResult && (
-        <img src={imageResult.imageUrl} alt={"its your image!"} />
-      )}
-
+        {imageResult && (
+          <Image src={imageResult.imageUrl} alt={"its your image!"} />
+        )}
       </div>
       <div id="inputs">
-      <button type="button">Enhance!</button>
-      <button type="button">Save as NFT</button>
+        <button type="button">Enhance!</button>
+        <button type="button">Save as NFT</button>
       </div>
     </div>
   );
