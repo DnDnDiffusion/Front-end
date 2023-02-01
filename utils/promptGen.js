@@ -1,4 +1,4 @@
-const styleOf = "Medieval Tinder Profile Pic";
+const styleOf = "Medieval war hero portrait";
 const descriptives = "fantasy illustration, unreal 5 render, 8k";
 
 //TODO: dont use positive negative, use -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 MAYBE
@@ -67,6 +67,8 @@ const conversions = {
   //armorWorn
 };
 
+export default conversions;
+
 const createPrompt = (data) => {
   //IDEA: could pull synonyms from a thesaurous api and use those to create more interesting prompts
   //IDEA2: could connect to chatGPT3 and use that to create more interesting prompts
@@ -87,14 +89,18 @@ const createPrompt = (data) => {
   // returns a prompt with:
   // alignment, race (converted to prompt language or our unique identifier such as DnDDragonborn),
   // class, armorWorn, background & scene, "holding a dragons egg", descriptives
-  return `${styleOf} of (${data.alignment}) ${
-    conversions[data.race.toLowerCase()] ? conversions[data.race.toLowerCase()] : data.race
-  }, ${conversions[data.class.toLowerCase()]}, wearing ${data.armorWorn} and holding a small dragon egg, ${
-    conversions[data.background.toLowerCase()] ? conversions[data.background.toLowerCase()] : data.background // or "in a cavern" or "in a mine"
-  }, ${descriptives}, in the style of ${styleOf}`;
+  return `${styleOf} of ${data.alignment} ${data.feature} ${data.gender ? data.gender : ""} ${conversions[data.race.toLowerCase()] ?
+    conversions[data.race.toLowerCase()]
+    : data.race
+    }, ${conversions[data.class.toLowerCase()] ? conversions[data.class.toLowerCase()]
+      : data.class}, wearing ${conversions[data.armorWorn.toLowerCase()] ? conversions[data.armorWorn.toLowerCase()]
+        : data.armorWorn} and holding a small dragon egg, ${conversions[data.background.toLowerCase()]
+          ? conversions[data.background.toLowerCase()]
+          : data.background // or "in a cavern" or "in a mine"
+    }, ${descriptives}.`;
 
   // Non-Dragonborn Solution 1.
-  // return `${styleOf} of (${data.alignment}) ${data.race} ${
+  // return `${ styleOf } of(${ data.alignment }) ${ data.race } ${
   //   conversions[data.race.toLowerCase()]
   // }, ${conversions[data.class.toLowerCase()]}, wearing ${
   //   data.armorWorn

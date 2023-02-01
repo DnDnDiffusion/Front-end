@@ -33,14 +33,12 @@
 
 ## Front-end setup
 
-> `npm install` or `yarn` from the front-end directory to install dependencies
+> `npm install` from the front-end directory to install dependencies
 
 First, run the development server from the front-end directory:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -59,9 +57,9 @@ Ideally, we have a frontend that:
 
 - [ ] Has a "download namedDragonborn.png" button so users that don't know about right clicking or screenshotting can easily get their picture onto their device.
 
-- [x] Has a "Save as NFT" for permanant decentralized file storage
+- [ ] Has a "Save as NFT" for permanant decentralized file storage
 
-- [ ] Has a "Connect Wallet" button to enable Save as NFT.
+- [x] Has a "Connect Wallet" button to enable Save as NFT.
 
 - [x] Displays form to send to backend for image processing ie. /getImage
 
@@ -73,18 +71,16 @@ Ideally, we have a frontend that:
 
 - [ ] After character selection, send and save chosen character with character sheet
 
-- [ ] Fully responsive hamburger menu and mobile-friendly
+- [x] Fully responsive hamburger menu and mobile-friendly
 - [ ] Image selection UX highlighting and features
 
 ## endpoint documentation
 
 - [x] stuff about the endpoint
 
-Our backend endpoint information is somewhat centralized in the mind and cloud of Somya the Dragonborn Cleric. Here is a [link to our R&D page on Notion](https://www.notion.so/danj-o/R-D-6575f7b14c5949c0b65215c052c21b17). Happy adventuring!
+Our backend endpoint information sprang forth from the mind and cloud of Somya the Dragonborn Cleric. Here is a [link to our Documentation page on Notion, check out "Dragonborn Backend"](https://www.notion.so/danj-o/R-D-6575f7b14c5949c0b65215c052c21b17). Happy adventuring!
 
 - [ ] Somya & Tippi's advice about Front-end to back-end connection
-
--- @Somya, how can I fix these issues while you're sleeping? Can you provide some step-by-step instructions or meet with me in around.co to teach me? -- Tippi
 
 ### Roadmaps
 

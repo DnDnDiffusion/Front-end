@@ -9,6 +9,7 @@ body {
   background-color: dimgray;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
     Helvetica Neue, sans-serif;
+  color: white
 }
 
 a {
@@ -20,15 +21,17 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
-    background: black;
+    background: rgb(162, 145, 145);
   }
-}
+} */
+
 
 h1 {
   margin: auto;
@@ -61,28 +64,69 @@ h1 {
   text-align: center;
 }
 
- 
-  .hidden {
-    display: none;
-  }
- 
-  h3 {
-    text-align: center;
-    white-space: break-word;
-  }
-  button {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-  }
+.hidden {
+  display: none;
+}
 
-  .logo {
-    
+h3 {
+  text-align: center;
+  white-space: break-word;
+}
+
+button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 3em;
+  width: 3em;
+}
+
+#trynow {
+  width: 300px;
+}
+
+.save-button {
+  background-image: url('../public/images/SaveButton/Background.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.stats {
+  background-image: url('../public/images/CREATE/char-stat-bg.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.checkbox-stats {
+  width: 24px;
+  height: 24px;
+  opacity: 1;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  #logo Image{
     height: 3em;
     width: 3em;
   }
-  #trynow {
-    width: 300px;
-  }
- 
 
+  .fire-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.fire-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 300ms ease-in;
+}
+
+.checkbox-stats:checked {
+  background-color: rgb(255, 45, 80);
+}
